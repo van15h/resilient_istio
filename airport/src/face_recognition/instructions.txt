@@ -1,0 +1,9 @@
+# Face Recognition Service
+
+Get the image from Docker Hub:
+  docker pull ccuni/face-recognition
+
+Run:
+  docker run -p<yourport>:8080 ccuni/face-recognition
+
+Choose network you need, e.g.: --network host

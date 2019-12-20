@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-analysis-deploy
+  labels:
+    project: airport
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-analysis
+  template:
+    metadata:
+      labels:
+        app: image-analysis
+    spec:
+      containers:
+      - name: image-analysis
+        image: ccuni/image-analysis:latest
+        ports:
+          - containerPort: 8080

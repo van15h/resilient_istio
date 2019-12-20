@@ -1,0 +1,674 @@
+[
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:37:35.044694Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 1
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:38:07.989678Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 2
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:38:12.311360Z",
+    "persons": [
+      {
+        "name": "Unknown Suspect 441"
+      }
+    ],
+    "id": 3
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:38:17.198537Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 4
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:38:33.489393Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 5
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:38:36.262769Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 6
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:39:12.357660Z",
+    "persons": [
+      {
+        "name": "Biden"
+      },
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 7
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:39:32.508793Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 8
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:39:45.001577Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 9
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:39:58.487647Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 10
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:39:58.353077Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 11
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:40:05.692667Z",
+    "persons": [
+      {
+        "name": "Terminator"
+      }
+    ],
+    "id": 12
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:40:07.905796Z",
+    "persons": [
+      {
+        "name": "Obama"
+      }
+    ],
+    "id": 13
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:40:35.487987Z",
+    "persons": [
+      {
+        "name": "Biden"
+      }
+    ],
+    "id": 14
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:40:50.938674Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 15
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:40:58.548821Z",
+    "persons": [
+      {
+        "name": "PersonX"
+      }
+    ],
+    "id": 16
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:41:02.395872Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 17
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:41:04.727334Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 18
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:41:08.384101Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 19
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:41:33.271118Z",
+    "persons": [
+      {
+        "name": "Biden"
+      }
+    ],
+    "id": 20
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:41:45.452711Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 21
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:41:59.200444Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 22
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:42:13.352425Z",
+    "persons": [
+      {
+        "name": "Unkown Susspect 233"
+      }
+    ],
+    "id": 23
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:42:22.475784Z",
+    "persons": [
+      {
+        "name": "Biden"
+      },
+      {
+        "name": "Terminator"
+      }
+    ],
+    "id": 24
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:42:33.136854Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 25
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:42:45.426555Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 26
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:43:04.439808Z",
+    "persons": [
+      {
+        "name": "PersonX"
+      }
+    ],
+    "id": 27
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:43:05.242494Z",
+    "persons": [
+      {
+        "name": "Biden"
+      },
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 28
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:43:20.868540Z",
+    "persons": [
+      {
+        "name": "Biden"
+      }
+    ],
+    "id": 29
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:43:28.137023Z",
+    "persons": [
+      {
+        "name": "Biden"
+      },
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 30
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:43:32.702332Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 31
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:43:33.760730Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 32
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:43:35.875924Z",
+    "persons": [
+      {
+        "name": "PersonX"
+      }
+    ],
+    "id": 33
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:43:55.671145Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 34
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:44:19.112992Z",
+    "persons": [
+      {
+        "name": "PersonX"
+      }
+    ],
+    "id": 35
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:44:21.275840Z",
+    "persons": [
+      {
+        "name": "Obama"
+      }
+    ],
+    "id": 36
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:44:49.544081Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 37
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:45:08.086419Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 38
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:45:11.081628Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 39
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:45:18.975987Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 40
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:45:30.855670Z",
+    "persons": [
+      {
+        "name": "Terminator"
+      }
+    ],
+    "id": 41
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T10:45:36.413020Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 42
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:45:56.212817Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 43
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:46:00.012314Z",
+    "persons": [
+      {
+        "name": "PersonX"
+      }
+    ],
+    "id": 44
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:46:11.248251Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 45
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:46:40.144620Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 46
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:46:53.560944Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 47
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:47:21.857927Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 48
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:47:28.442259Z",
+    "persons": [
+      {
+        "name": "Terminator"
+      }
+    ],
+    "id": 49
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:47:49.050117Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 50
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T11:35:37.151949Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 51
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T11:35:54.166032Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 52
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T11:43:59.305542Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 53
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T11:44:10.382275Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 54
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T13:09:27.486362Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 55
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T13:09:28.515704Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 56
+  },
+  {
+    "section": 2,
+    "event": "exit",
+    "timestamp": "2019-11-05T13:09:32.165162Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 57
+  },
+  {
+    "section": 1,
+    "event": "entry",
+    "timestamp": "2019-11-05T13:09:46.278721Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 58
+  },
+  {
+    "section": 1,
+    "event": "exit",
+    "timestamp": "2019-11-05T13:10:01.185994Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 59
+  },
+  {
+    "section": 2,
+    "event": "entry",
+    "timestamp": "2019-11-05T10:44:49.544081Z",
+    "persons": [
+      {
+        "name": "George W"
+      }
+    ],
+    "id": 60
+  }
+]

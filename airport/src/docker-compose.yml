@@ -1,0 +1,129 @@
+version: '3'
+# name all cameras as camera-agent-#
+# name all sections as section-#
+services:
+  camera-agent-1:
+    container_name: camera-agent-1
+    image: ccuni/camera-agent:latest
+    restart: always
+    ports:
+      - "35001:8080"
+    networks:
+      - airport_net
+
+  camera-agent-2:
+    container_name: camera-agent-2
+    image: ccuni/camera-agent:latest
+    restart: always
+    ports:
+      - "35002:8080"
+    networks:
+      - airport_net
+
+  camera-agent-3:
+    container_name: camera-agent-3
+    image: ccuni/camera-agent:latest
+    restart: always
+    ports:
+      - "35003:8080"
+    networks:
+      - airport_net
+
+  camera-agent-4:
+    container_name: camera-agent-4
+    image: ccuni/camera-agent:latest
+    restart: always
+    ports:
+      - "35004:8080"
+    networks:
+      - airport_net
+
+  collector:
+    container_name: collector
+    build: ./collector
+    image: collector
+    environment:
+      - URL_ALERTS=http://alerts:8080
+      - URL_IMAGE_ANALYZE=http://image-analysis:8080/frame
+      - URL_FACE_RECOGNITION=http://face-recognition:8080/frame
+    restart: always
+    volumes:
+      - ./collector:/app
+    ports:
+      - "35010:8080"
+    networks:
+      - airport_net
+
+  image-analysis:
+    container_name: image-analysis
+    image: ccuni/image-analysis:latest
+    restart: always
+    ports:
+      - "35020:8080"
+    networks:
+      - airport_net
+
+  section-1:
+    container_name: section-1
+    build: ./section
+    image: section
+    environment:
+      - SECTION=1
+    restart: always
+    volumes:
+      - ./section:/app
+    ports:
+      - "35030:8080"
+    networks:
+      - airport_net
+
+  section-2:
+    container_name: section-2
+    build: ./section
+    image: section
+    environment:
+      - SECTION=2
+    restart: always
+    volumes:
+      - ./section:/app
+    ports:
+      - "35032:8080"
+    networks:
+      - airport_net
+
+  face-recognition:
+    container_name: face-recognition
+    image: ccuni/face-recognition:latest
+    restart: always
+    ports:
+      - "35040:8080"
+    networks:
+      - airport_net
+
+  alerts:
+    container_name: alerts
+    build: ./alerts
+    image: alerts
+    restart: always
+    volumes:
+      - ./alerts:/app
+    ports:
+      - "35050:8080"
+    networks:
+      - airport_net
+
+  cpanel:
+    container_name: cpanel
+    build: ./cpanel
+    image: cpanel
+    restart: always
+    volumes:
+      - ./cpanel:/app
+    ports:
+      - "35060:8080"
+    networks:
+      - airport_net
+
+networks:
+  airport_net:
+    driver: bridge

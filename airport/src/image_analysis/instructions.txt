@@ -1,0 +1,10 @@
+# Image Analysis Service
+
+Get the image from Docker Hub:
+  docker pull ccuni/image-analysis
+
+Run:
+  docker run -p<yourport>:8080 ccuni/image-analysis
+  docker run -p 42000:8080 ccuni/image-analysis
+
+Choose network you need, e.g.: --network host

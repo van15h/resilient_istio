@@ -1,0 +1,4 @@
+# Camera Agent Service
+
+Get the image from Docker Hub:
+  docker pull ccuni/camera-agent

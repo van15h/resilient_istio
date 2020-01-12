@@ -17,5 +17,6 @@ spec:
       containers:
       - name: face-recognition
         image: ccuni/face-recognition:latest
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

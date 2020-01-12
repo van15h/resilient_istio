@@ -17,6 +17,7 @@ spec:
       containers:
       - name: collector
         image: van15h/collector
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
         env:

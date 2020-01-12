@@ -17,5 +17,6 @@ spec:
       containers:
       - name: alerts
         image: van15h/alerts
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

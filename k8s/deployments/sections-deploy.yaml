@@ -17,6 +17,7 @@ spec:
       containers:
       - name: section-1
         image: van15h/section
+        imagePullPolicy: IfNotPresent
         env:
         - name: SECTION
           value: "1"

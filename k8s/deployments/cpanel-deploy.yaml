@@ -17,5 +17,6 @@ spec:
       containers:
       - name: cpanel
         image: van15h/cpanel
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

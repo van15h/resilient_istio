@@ -17,5 +17,6 @@ spec:
       containers:
       - name: image-analysis
         image: ccuni/image-analysis:latest
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

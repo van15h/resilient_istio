@@ -15,6 +15,11 @@ dest_face = os.environ['URL_FACE_RECOGNITION']
 dest_alerts = os.environ['URL_ALERTS']
 
 
+@app.route('/status', methods=['GET'])
+def show_status():
+    return Response("Collector : Online", status=200, mimetype="text/plain")
+
+
 @app.route('/frame', methods=['POST'])
 def forward_frame():
     """forward frame from camera to face recognition and image analyzer"""

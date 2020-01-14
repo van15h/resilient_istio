@@ -1,1 +1,3 @@
-istio-*
+istio-*/
+src/alerts/*.json
+.vscode/

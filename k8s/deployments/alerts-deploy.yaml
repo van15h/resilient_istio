@@ -11,8 +11,8 @@ spec:
   selector:
     app: alerts
   ports:
-  - name: alerts
-    protocol: HTTP
+  - name: http
+    protocol: http
     port: 8080
     targetPort: 8080
     # nodePort: 30000

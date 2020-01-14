@@ -13,6 +13,11 @@ bind_to = {'hostname': "0.0.0.0", 'port': 8080}
 filename = 'data_alerts.json'
 
 
+@app.route('/status', methods=['GET'])
+def show_status():
+    return Response("Alerts : Online", status=200, mimetype="text/plain")
+
+
 @app.route('/', methods=['GET'])
 def filter():
     """filter alerts depending on parameters"""

@@ -17,6 +17,11 @@ cameras = {'cameras': []}  # all cameras
 dest_alerts = ''  # where to send alerts
 
 
+@app.route('/status', methods=['GET'])
+def show_status():
+    return Response("CPanel : Online", status=200, mimetype="text/plain")
+
+
 @app.route('/config', methods=['PUT'])
 def reload_config():
     """endpoint to reload config after changes made"""

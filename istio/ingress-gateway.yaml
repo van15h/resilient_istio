@@ -28,6 +28,6 @@ spec:
         exact: /status
     route:
     - destination:
-        host: alerts
+        host: cpanel
         port:
           number: 8080

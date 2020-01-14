@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: alerts
   labels:
-    project: airport
     app: alerts
     service: alerts
 spec:
@@ -11,33 +10,34 @@ spec:
   selector:
     app: alerts
   ports:
-  - name: http
-    protocol: http
+  - name: tcp
+    protocol: TCP
     port: 8080
-    targetPort: 8080
-    # nodePort: 30000
+    # nodePort: 30001
+    # targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: alerts-deploy
   labels:
-    project: airport
-    app: details
+    app: alerts
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: alerts
+      version: v1
   template:
     metadata:
       labels:
         app: alerts
+        version: v1
     spec:
       containers:
       - name: alerts
-        image: van15h/alerts
+        image: van15h/alerts:v1
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

@@ -26,6 +26,16 @@ spec:
   - match:
     - uri:
         exact: /status
+    - uri:
+        exact: /system
+    - uri:
+        exact: /config
+    - uri:
+        prefix: /cameras
+    - uri:
+        prefix: /sections
+    - uri:
+        prefix: /alerts
     route:
     - destination:
         host: cpanel

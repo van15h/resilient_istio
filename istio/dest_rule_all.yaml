@@ -41,3 +41,25 @@ spec:
   - name: v1
     labels:
       version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: camera-agent-1
+spec:
+  host: camera-agent-1
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: camera-agent-2
+spec:
+  host: camera-agent-2
+  subsets:
+  - name: v1
+    labels:
+      version: v1

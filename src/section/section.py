@@ -14,6 +14,11 @@ bind_to = {'hostname': "0.0.0.0", 'port': 8080}
 filename = 'data_persons_' + os.environ['SECTION'] + '.json'
 
 
+@app.route('/status', methods=['GET'])
+def show_status():
+    return Response("Section " + os.environ['SECTION'] + " : Online", status=200, mimetype="text/plain")
+
+
 @app.route('/persons', methods=['POST'])
 def send_persons():
     """post forwarded from face recognition"""

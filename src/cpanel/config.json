@@ -3,28 +3,28 @@
   "cameras": [{
       "id": 1,
       "description": "exit camera section 1",
-      "url": "http://camera-agent-1:8080",
+      "url": "http://camera-agent-1.default.svc.cluster.local:8080",
       "section": 1,
       "type": "exit"
     },
     {
       "id": 2,
       "description": "entry camera section 1",
-      "url": "http://camera-agent-2:8080",
+      "url": "http://camera-agent-2.default.svc.cluster.local:8080",
       "section": 1,
       "type": "entry"
     },
     {
       "id": 3,
       "description": "exit camera section 2",
-      "url": "http://camera-agent-3:8080",
+      "url": "http://camera-agent-3.default.svc.cluster.local:8080",
       "section": 2,
       "type": "exit"
     },
     {
       "id": 4,
       "description": "entry camera section 2",
-      "url": "http://camera-agent-4:8080",
+      "url": "http://camera-agent-4.default.svc.cluster.local:8080",
       "section": 2,
       "type": "entry"
     }
@@ -32,20 +32,20 @@
   "sections": [{
       "id": 1,
       "description": "gate 1",
-      "url": "http://section-1:8080"
+      "url": "http://section-1.default.svc.cluster.local:8080"
     },
     {
       "id": 2,
       "description": "gate 2",
-      "url": "http://section-2:8080"
+      "url": "http://section-2.default.svc.cluster.local:8080"
     }
   ],
   "collector": {
     "description": "router for all requests",
-    "url": "http://collector:8080"
+    "url": "http://collector.default.svc.cluster.local:8080"
   },
   "alerts": {
     "description": "database for saving alert info",
-    "url": "http://alerts:8080"
+    "url": "http://alerts.default.svc.cluster.local:8080"
   }
 }

@@ -6,14 +6,11 @@ metadata:
     app: section-1
     service: section-1
 spec:
-  # type: NodePort
   selector:
     app: section-1
   ports:
   - name: http
     port: 8080
-    # targetPort: 8080
-    # nodePort: 30005
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -37,7 +34,7 @@ spec:
       containers:
       - name: section-1
         image: van15h/section:v1
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         env:
         - name: SECTION
           value: "1"

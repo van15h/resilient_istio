@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, Response
+from flask import Flask, request, abort, Response, render_template
 import requests
 import json
 import pathlib
@@ -15,6 +15,13 @@ data = {}  # data from config file
 sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
 dest_alerts = ''  # where to send alerts
+dest_collector = '' # collector url
+
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/status', methods=['GET'])
@@ -22,10 +29,19 @@ def show_status():
     return Response("CPanel : Online", status=200, mimetype="text/plain")
 
 
+@app.route('/collector/status', methods=['GET'])
+def get_collector_status():
+    """get status of collector"""
+    status_url = dest_collector + '/status'
+    response = requests.get(status_url)
+    app.logger.debug('forwarding GET to collector: ' + status_url)
+    return Response(response.text, status=response.status_code)
+
+
 @app.route('/config', methods=['PUT'])
 def reload_config():
-    """endpoint to reload config after changes made"""
-    app.logger.debug('reload system config')
+    """reload config after changes made"""
+    app.logger.debug('system config reloaded')
     global data
     global cameras
     global sections
@@ -53,6 +69,7 @@ def get_cameras():
 def get_state(id):
     """state of camera #id"""
     response = requests.get(get_cam_url(id)+r'/state')
+    app.logger.debug('camera url: ' + get_cam_url(id)+r'/state')
     app.logger.debug('get state of camera agent: ' + str(id))
     return Response(response.text, status=response.status_code)
 
@@ -78,9 +95,18 @@ def get_frame(id):
     return Response(response.text, status=response.status_code)
 
 
+@app.route('/sections/<id>/status', methods=['GET'])
+def get_section_status(id):
+    """get status of section"""
+    status_url = get_section_url(id) + '/status'
+    app.logger.debug('forwarding GET to section: ' + status_url)
+    response = requests.get(status_url)
+    return Response(response.text, status=response.status_code)
+
+
 @app.route('/sections', methods=['GET'])
 def get_sections():
-    """list all sections in system"""
+    """list all sections in system from internal config file"""
     temp = {'sections': []}
     for c in sections['sections']:
         cam = {}
@@ -125,8 +151,18 @@ def save_alerts():
 @app.route('/alerts/', methods=['GET'])
 def filter_alerts():
     """list alerts by parameters"""
-    response = requests.get(dest_alerts + '/', params=request.args)
-    app.logger.debug('filter alerts: ')
+    request_url = dest_alerts + '/'
+    response = requests.get(request_url, params=request.args)
+    app.logger.debug('filter alerts: ' + request_url)
+    return Response(response.text, status=response.status_code)
+
+
+@app.route('/alerts/status', methods=['GET'])
+def get_alerts_status():
+    """get status of alerts"""
+    status_url = dest_alerts + '/status'
+    response = requests.get(status_url)
+    app.logger.debug('forwarding GET to alerts: ' + status_url)
     return Response(response.text, status=response.status_code)
 
 
@@ -137,6 +173,16 @@ def get_alert(id):
     response = requests.get(dest_alerts + '/' + str(id))
     app.logger.debug('get alert by id: ' + str(id))
     return Response(response.text, status=response.status_code)
+
+
+# @app.route('/health', methods=['GET'])
+# def get_health():
+#     temp = {'health check': []}
+#     response = requests.get(dest_alerts + '/status').text
+#     temp.get('health check').append(response)
+#     response = requests.get(dest_collector + '/status').text
+#     temp.get('health check').append(response)
+#     return Response(json.dumps(temp, indent=2), status=200)
 
 
 @app.route('/alerts/<id>', methods=['DELETE'])
@@ -170,6 +216,7 @@ def open_file():
     global cameras
     global sections
     global dest_alerts
+    global dest_collector
     # open data file if exists
     file = pathlib.Path(filename)
     if file.exists():
@@ -190,9 +237,10 @@ def open_file():
     # read all sections from config
     sections['sections'] = data.get('sections')
     dest_alerts = data.get('alerts').get('url')
+    dest_collector = data.get('collector').get('url')
 
 
-@app.route('/system', methods=['POST'])
+@app.route('/production', methods=['POST'])
 def toggle():
     """start all cameras to stream"""
     param = request.args

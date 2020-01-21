@@ -4,11 +4,11 @@ metadata:
   name: cpanel
 spec:
   hosts:
-  - cpanel
+  - cpanel.default.svc.cluster.local
   http:
   - route:
     - destination:
-        host: cpanel
+        host: cpanel.default.svc.cluster.local
         subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -17,24 +17,11 @@ metadata:
   name: alerts
 spec:
   hosts:
-  - alerts
+  - alerts.default.svc.cluster.local
   http:
   - route:
     - destination:
-        host: alerts
-        subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: collector
-spec:
-  hosts:
-  - collector
-  http:
-  - route:
-    - destination:
-        host: collector
+        host: alerts.default.svc.cluster.local
         subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -43,11 +30,11 @@ metadata:
   name: section-1
 spec:
   hosts:
-  - section-1
+  - section-1.default.svc.cluster.local
   http:
   - route:
     - destination:
-        host: section-1
+        host: section-1.default.svc.cluster.local
         subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -56,48 +43,48 @@ metadata:
   name: camera-agent-1
 spec:
   hosts:
-  - camera-agent-1
+  - camera-agent-1.default.svc.cluster.local
   http:
   - route:
     - destination:
-        host: camera-agent-1
+        host: camera-agent-1.default.svc.cluster.local
         subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: camera-agent-2
-spec:
-  hosts:
-  - camera-agent-2
-  http:
-  - route:
-    - destination:
-        host: camera-agent-2
-        subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: face-recognition
-spec:
-  hosts:
-  - face-recognition
-  http:
-  - route:
-    - destination:
-        host: face-recognition
-        subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: image-analysis
-spec:
-  hosts:
-  - image-analysis
-  http:
-  - route:
-    - destination:
-        host: image-analysis
-        subset: v1
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: camera-agent-2
+# spec:
+#   hosts:
+#   - camera-agent-2
+#   http:
+#   - route:
+#     - destination:
+#         host: camera-agent-2
+#         subset: v1
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: face-recognition
+# spec:
+#   hosts:
+#   - face-recognition
+#   http:
+#   - route:
+#     - destination:
+#         host: face-recognition
+#         subset: v1
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: image-analysis
+# spec:
+#   hosts:
+#   - image-analysis
+#   http:
+#   - route:
+#     - destination:
+#         host: image-analysis
+#         subset: v1

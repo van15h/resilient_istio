@@ -129,7 +129,7 @@ def process(obj):
     app.logger.debug('counter = ' + str(counter))
     counter += 1
     # data processing
-    del obj['image']
+    # del obj['image']
     obj['id'] = counter
     data.append(obj)
     app.logger.debug('data file added new persons')

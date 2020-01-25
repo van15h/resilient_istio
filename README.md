@@ -4,11 +4,13 @@ Resilient deployment of microservices applications with Kubernetes and Istio
 
 ## Requirements
 
-+ curl
++ linux
 
 + virtualbox
 
 + minikube
+
++ curl
 
 ## How to run
 
@@ -17,6 +19,8 @@ Resilient deployment of microservices applications with Kubernetes and Istio
 + go to project folder: `cd resilient_istio`
 
 + create minikube VM. run: `./create_minikube_cluster.sh`
+
++ install and deploy istio to minikube. run `./install_istio.sh`
 
 + to use k8s docker locally. images will be built direct in minikube VM.
     run: `eval $(minikube docker-env -p airport)`

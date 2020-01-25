@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+#
+#
 
 echo "building alerts v1"
 docker build -t alerts:v1 src/alerts

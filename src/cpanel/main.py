@@ -15,13 +15,7 @@ data = {}  # data from config file
 sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
 dest_alerts = ''  # where to send alerts
-dest_collector = '' # collector url
-
-
-@app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html')
+dest_collector = ''  # collector url
 
 
 @app.route('/status', methods=['GET'])
@@ -242,9 +236,9 @@ def open_file():
 
 @app.route('/production', methods=['POST'])
 def toggle():
-    """start all cameras to stream"""
+    """start/stop all cameras to stream"""
     param = request.args
-    app.logger.debug('start system')
+    app.logger.debug('start/stop system')
     json_body = []
 
     for i in cameras['cameras']:
@@ -255,17 +249,19 @@ def toggle():
         json_body.append(temp)
 
     if param.get('toggle') == 'on' or len(request.args) == 0:
+        app.logger.debug('send on to camera agents: ')
         for id in range(len(cameras['cameras'])):
-            app.logger.debug('send on to camera: ')
-            response = requests.post(get_cam_url(
-                id+1)+r'/stream', json=json_body[id])
-        return Response('', status=200)
+            requests.post(get_cam_url(id+1)+r'/stream',
+                          json=json_body[id])
+        headers = [{'Access-Control-Allow-Origin', '*'}]
+        return Response('', status=200, headers=headers)
     elif param.get('toggle') == 'off':
+        app.logger.debug('send off to camera agents: ')
         for id in range(len(cameras['cameras'])):
-            app.logger.debug('send on to camera: ')
-            response = requests.post(get_cam_url(
-                id+1)+r'/stream?toggle=off', json=json_body[id])
-        return Response('', status=200)
+            requests.post(get_cam_url(id+1)+r'/stream?toggle=off',
+                          json=json_body[id])
+        headers = [{'Access-Control-Allow-Origin', '*'}]
+        return Response('', status=200, headers=headers)
     return abort(400)
 
 

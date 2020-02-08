@@ -2,3 +2,5 @@ istio-*/
 .vscode/
 data/
 kubectl
+src/alerts/data_alerts.json
+src/section/data_persons_1.json

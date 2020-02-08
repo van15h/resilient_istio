@@ -1,10 +1,8 @@
 version: '3'
-# name all cameras as camera-agent-#
-# name all sections as section-#
 services:
   camera-agent-1:
     container_name: camera-agent-1
-    image: ccuni/camera-agent:latest
+    image: van15h/camera-agent:v1
     restart: always
     ports:
       - "35001:8080"
@@ -13,35 +11,16 @@ services:
 
   camera-agent-2:
     container_name: camera-agent-2
-    image: ccuni/camera-agent:latest
+    image: van15h/camera-agent:v1
     restart: always
     ports:
       - "35002:8080"
     networks:
       - airport_net
 
-  camera-agent-3:
-    container_name: camera-agent-3
-    image: ccuni/camera-agent:latest
-    restart: always
-    ports:
-      - "35003:8080"
-    networks:
-      - airport_net
-
-  camera-agent-4:
-    container_name: camera-agent-4
-    image: ccuni/camera-agent:latest
-    restart: always
-    ports:
-      - "35004:8080"
-    networks:
-      - airport_net
-
   collector:
     container_name: collector
-    build: ./collector
-    image: collector
+    image: van15h/collector:v1
     environment:
       - URL_ALERTS=http://alerts:8080
       - URL_IMAGE_ANALYZE=http://image-analysis:8080/frame
@@ -56,7 +35,7 @@ services:
 
   image-analysis:
     container_name: image-analysis
-    image: ccuni/image-analysis:latest
+    image: van15h/image-analysis:v1
     restart: always
     ports:
       - "35020:8080"
@@ -65,8 +44,7 @@ services:
 
   section-1:
     container_name: section-1
-    build: ./section
-    image: section
+    image: van15h/section:v1
     environment:
       - SECTION=1
     restart: always
@@ -77,23 +55,9 @@ services:
     networks:
       - airport_net
 
-  section-2:
-    container_name: section-2
-    build: ./section
-    image: section
-    environment:
-      - SECTION=2
-    restart: always
-    volumes:
-      - ./section:/app
-    ports:
-      - "35032:8080"
-    networks:
-      - airport_net
-
   face-recognition:
     container_name: face-recognition
-    image: ccuni/face-recognition:latest
+    image: van15h/face-recognition:v1
     restart: always
     ports:
       - "35040:8080"
@@ -102,8 +66,7 @@ services:
 
   alerts:
     container_name: alerts
-    build: ./alerts
-    image: alerts
+    image: van15h/alerts:v1
     restart: always
     volumes:
       - ./alerts:/app
@@ -114,13 +77,23 @@ services:
 
   cpanel:
     container_name: cpanel
-    build: ./cpanel
-    image: cpanel
+    image: van15h/cpanel:v1
     restart: always
     volumes:
       - ./cpanel:/app
     ports:
       - "35060:8080"
+    networks:
+      - airport_net
+
+  frontend:
+    container_name: frontend
+    image: van15h/frontend:v1
+    restart: always
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "35070:80"
     networks:
       - airport_net
 

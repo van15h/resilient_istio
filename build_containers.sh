@@ -14,5 +14,8 @@ docker build -t van15h/section:v1 src/section
 echo "building collector v1"
 docker build -t van15h/collector:v1 src/collector
 
-echo "check if all 4 containers built"
-docker images | grep 'alerts\|cpanel\|collector\|section'
+echo "building frontend v1"
+docker build -t van15h/frontend:v1 src/frontend
+
+echo "check if all containers built"
+docker images | grep 'alerts\|cpanel\|collector\|section\|frontend'

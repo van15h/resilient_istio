@@ -3,24 +3,32 @@ import requests
 import json
 import pathlib
 import logging
-
+import os
 
 app = Flask(__name__)
 
-bind_to = {'hostname': "0.0.0.0", 'port': 8080}
+port = int(os.environ.get('PORT', 8080))
+bind_to = {'hostname': '0.0.0.0', 'port': port}
 # system configuration file
 # what camera belongs what section
 filename = 'config.json'
 data = {}  # data from config file
 sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
-dest_alerts = ''  # where to send alerts
-dest_collector = ''  # collector url
+dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
+dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
 
 
 @app.route('/status', methods=['GET'])
 def show_status():
-    return Response("CPanel : Online", status=200, mimetype="text/plain")
+    return Response('CPanel : Online', status=200, mimetype='text/plain')
+
+
+@app.route('/collector/stats', methods=['GET'])
+def get_stats():
+    stats_url = dest_collector + '/stats'
+    response = requests.get(stats_url)
+    return Response(response.json, status=response.status_code)
 
 
 @app.route('/collector/status', methods=['GET'])
@@ -169,16 +177,6 @@ def get_alert(id):
     return Response(response.text, status=response.status_code)
 
 
-# @app.route('/health', methods=['GET'])
-# def get_health():
-#     temp = {'health check': []}
-#     response = requests.get(dest_alerts + '/status').text
-#     temp.get('health check').append(response)
-#     response = requests.get(dest_collector + '/status').text
-#     temp.get('health check').append(response)
-#     return Response(json.dumps(temp, indent=2), status=200)
-
-
 @app.route('/alerts/<id>', methods=['DELETE'])
 def delete_alert(id):
     """delete alert by id"""
@@ -209,8 +207,8 @@ def open_file():
     global data
     global cameras
     global sections
-    global dest_alerts
-    global dest_collector
+    # global dest_alerts
+    # global dest_collector
     # open data file if exists
     file = pathlib.Path(filename)
     if file.exists():
@@ -230,8 +228,8 @@ def open_file():
         cameras['cameras'].append(cam)
     # read all sections from config
     sections['sections'] = data.get('sections')
-    dest_alerts = data.get('alerts').get('url')
-    dest_collector = data.get('collector').get('url')
+    # dest_alerts = data.get('alerts').get('url')
+    # dest_collector = data.get('collector').get('url')
 
 
 @app.route('/production', methods=['POST'])

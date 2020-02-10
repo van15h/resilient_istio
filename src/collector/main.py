@@ -7,17 +7,21 @@ import os
 
 app = Flask(__name__)
 
-bind_to = {'hostname': "0.0.0.0", 'port': 8080}
+port = int(os.environ.get("PORT", 8080))
+bind_to = {'hostname': '0.0.0.0', 'port': port}
 
 # read urls of services from env variables
-dest_analysis = os.environ['URL_IMAGE_ANALYZE']
-dest_face = os.environ['URL_FACE_RECOGNITION']
-dest_alerts = os.environ['URL_ALERTS']
+dest_analysis = os.environ.get('URL_IMAGE_ANALYZE',
+                               'http://image-analysis:8080/frame')
+dest_face = os.environ.get('URL_FACE_RECOGNITION',
+                           'http://face-recognition:8080/frame')
+dest_alerts = os.environ.get('URL_ALERTS',
+                             'http://alerts:8080')
 
 
 @app.route('/status', methods=['GET'])
 def show_status():
-    return Response("Collector : Online", status=200, mimetype="text/plain")
+    return Response('Collector : Online', status=200, mimetype='text/plain')
 
 
 @app.route('/frame', methods=['POST'])

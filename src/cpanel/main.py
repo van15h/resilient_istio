@@ -243,7 +243,7 @@ def toggle():
         temp = {}
         temp['section'] = i['section']
         temp['event'] = i['type']
-        temp['destination'] = data['collector']['url']
+        temp['destination'] = dest_collector
         json_body.append(temp)
 
     if param.get('toggle') == 'on' or len(request.args) == 0:

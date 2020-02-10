@@ -4,11 +4,13 @@ import json
 import pathlib
 from datetime import datetime
 import logging
+import os
 
 
 app = Flask(__name__)
 
-bind_to = {'hostname': "0.0.0.0", 'port': 8080}
+port = int(os.environ.get('PORT', 8080))
+bind_to = {'hostname': '0.0.0.0', 'port': port}
 # db file to save alerts
 filename = 'data_alerts.json'
 

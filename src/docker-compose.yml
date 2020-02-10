@@ -21,10 +21,6 @@ services:
   collector:
     container_name: collector
     image: van15h/collector:v1
-    environment:
-      - URL_ALERTS=http://alerts:8080
-      - URL_IMAGE_ANALYZE=http://image-analysis:8080/frame
-      - URL_FACE_RECOGNITION=http://face-recognition:8080/frame
     restart: always
     volumes:
       - ./collector:/app

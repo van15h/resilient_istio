@@ -9,7 +9,8 @@ import os
 
 app = Flask(__name__)
 
-bind_to = {'hostname': "0.0.0.0", 'port': 8080}
+port = int(os.environ.get('PORT', 8080))
+bind_to = {'hostname': '0.0.0.0', 'port': port}
 # read envirenment variable to determine section id
 filename = 'data_persons_' + os.environ['SECTION'] + '.json'
 

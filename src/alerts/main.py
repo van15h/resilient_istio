@@ -12,12 +12,14 @@ app = Flask(__name__)
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
 # db file to save alerts
-filename = 'data_alerts.json'
+filename = os.environ.get('FILENAME', 'data_alerts.json')
+dest_cpanel = os.environ.get('URL_CPANEL',
+                             'http://cpanel:8080/alert')
 
 
 @app.route('/status', methods=['GET'])
 def show_status():
-    return Response("Alerts : Online", status=200, mimetype="text/plain")
+    return Response('Alerts : Online', status=200, mimetype='text/plain')
 
 
 @app.route('/', methods=['GET'])
@@ -36,9 +38,11 @@ def send_alert():
     app.logger.debug('post from face recognition')
     if request.is_json == True:
         app.logger.debug('is json')
-        return process(request.json)
+        forward_cpanel(request.json)
+        process(request.json)
     else:
-        return abort(400)
+        return Response('', status=400)
+    return Response('', status=200)
 
 
 @app.route('/<id>', methods=['GET'])
@@ -53,6 +57,14 @@ def delete_alert(id):
     """delete alert by id"""
     app.logger.debug('delete person by id')
     return delete(id)
+
+
+def forward_cpanel(obj):
+    try:
+        requests.post(dest_cpanel, json=obj)
+    except:
+        app.logger.error('Failed to reach [' + dest_cpanel + ']')
+        return Response('', status=400)
 
 
 def filter_alerts(obj):
@@ -131,7 +143,7 @@ def process(obj):
     app.logger.debug('counter = ' + str(counter))
     counter += 1
     # data processing
-    # del obj['image']
+    del obj['image']
     obj['id'] = counter
     data.append(obj)
     app.logger.debug('data file added new persons')

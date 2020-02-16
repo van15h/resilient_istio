@@ -77,9 +77,10 @@ def forward_section(obj, id):
 
 
 def forward_face(obj):
-    """"forward frame to face recognition with response destination - alerts"""
+    """"forward frame to face recognition with destination - alerts"""
     try:
         obj['destination'] = dest_alerts
+        del obj['persons']
         requests.post(dest_face, json=obj)
         app.logger.debug('forwarded to: ' + dest_face)
     except:

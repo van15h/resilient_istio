@@ -1,14 +1,4 @@
 function toggle_on() {
-  // console.log('started')
-  // const Http = new XMLHttpRequest();
-  // const url = 'http://localhost:35060/production?toggle=on';
-  // console.log(url)
-  // Http.open("POST", url);
-  // Http.send();
-
-  // Http.onreadystatechange = (e) => {
-  //   console.log(Http.responseText)
-  // }
   var request = new Request('http://localhost:35060/production?toggle=on', {
     method: 'post'
   });
@@ -21,17 +11,6 @@ function toggle_on() {
 };
 
 function toggle_off() {
-  // console.log('stopped')
-  // const Http = new XMLHttpRequest();
-  // const url = 'http://localhost:35060/production?toggle=off';
-  // console.log(url)
-  // Http.open("POST", url);
-  // Http.send();
-
-  // Http.onreadystatechange = (e) => {
-  //   console.log(Http.responseText)
-  // }
-
   var request = new Request('http://localhost:35060/production?toggle=off', {
     method: 'post'
   });
@@ -42,3 +21,18 @@ function toggle_off() {
   });
 
 };
+
+function get_analysis() {
+  var xmlhttp = new XMLHttpRequest();
+  var url = 'http://localhost:35060/analysis';
+
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var myArr = JSON.parse(this.responseText);
+      myFunction(myArr);
+    }
+  };
+
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}

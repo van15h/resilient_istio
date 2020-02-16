@@ -4,31 +4,81 @@ import json
 import pathlib
 import logging
 import os
+import time
 
 app = Flask(__name__)
 
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
+
+dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
+dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
 # system configuration file
 # what camera belongs what section
-filename = 'config.json'
+filename = os.environ.get('FILENAME', 'config.json')
 data = {}  # data from config file
 sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
-dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
-dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
+stats_analysis = {'persons': [
+        {
+            'age': '88-99',
+            'gender': 'female',
+            'event': 'entry',
+            'timestamp': '2010-10-14T11:19:18.039111Z'
+        },
+    ]}
+stats_alert = {}
+
+
+@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
+def index():
+    return render_template('index.html')
 
 
 @app.route('/status', methods=['GET'])
 def show_status():
-    return Response('CPanel : Online', status=200, mimetype='text/plain')
+    return Response('CPanel : Online',
+                    mimetype='text/plain',
+                    status=200)
 
 
-@app.route('/collector/stats', methods=['GET'])
-def get_stats():
-    stats_url = dest_collector + '/stats'
-    response = requests.get(stats_url)
-    return Response(response.json, status=response.status_code)
+@app.route('/analysis', methods=['GET'])
+def get_analysis():
+    return Response(json.dumps(stats_analysis, indent=2),
+                    status=200)
+
+
+@app.route('/alert', methods=['GET'])
+def get_current_alert():
+    if bool(stats_alert):
+        del stats_alert['image']
+    return Response(json.dumps(stats_alert, indent=2), status=200)
+
+
+@app.route('/analysis', methods=['POST'])
+def post_analysis():
+    global stats_analysis
+    if (request.is_json == True):
+        app.logger.debug('got statistic from analysis')
+        app.logger.debug('analysis timestamp:' +
+                         str(request.json['timestamp']))
+        stats_analysis = request.json
+    else:
+        return Response('', status=400)
+    return Response('', status=200)
+
+
+@app.route('/alert', methods=['POST'])
+def post_alert():
+    global stats_alert
+    if (request.is_json == True):
+        app.logger.debug('got alert from face recognition')
+        app.logger.debug('alert timestamp: ' + request.json['timestamp'])
+        stats_alert = request.json
+    else:
+        return Response('', status=400)
+    return Response('', status=200)
 
 
 @app.route('/collector/status', methods=['GET'])
@@ -80,10 +130,10 @@ def get_state(id):
 def start_stream(id):
     """start stream for camera #id"""
     if (request.is_json == True):
-        print(get_cam_url(id)+r'/stream')
+        app.logger.debug(get_cam_url(id)+r'/stream')
         response = requests.post(get_cam_url(
             id)+r'/stream', json=request.json, params=request.args)
-        print('start camera agent: ' + str(id))
+        app.logger.debug('start camera agent: ' + str(id))
     else:
         return abort(400)
     return Response(response.text, status=response.status_code)
@@ -232,7 +282,7 @@ def open_file():
     # dest_collector = data.get('collector').get('url')
 
 
-@app.route('/production', methods=['POST'])
+@app.route('/production', methods=['GET'])
 def toggle():
     """start/stop all cameras to stream"""
     param = request.args

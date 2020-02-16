@@ -3,24 +3,39 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="author" content="Ivan Varabyeu">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="static/css/main.css">
-  <title>CPanel</title>
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+
+  <link rel="stylesheet" href="static/styles/main.css">
+
+  <title>DashBoard</title>
 </head>
 
-<body>
-  <div class="content">
-    <h1>Control Panel</h1>
-    <span>Persons</span> <span>Alerts</span>
-    <div class="images">
-      <span>
-        <img src="static/job.jpg" alt="Persons moving in the gate" height="400" width="300" />
-        <img src="static/job.jpg" alt="Persons of interest, that were detected in the gate" height="400" width="300" />
-      </span>
+<body onload="update()">
+  <script src="static/scripts/main.js"></script>
+  <h1>Dashboard</h1>
+
+  <div class="row">
+    <div id="stats" class="column">
+      <h2>Section 1</h2>
+      <img id="frame" src="" alt="persons going through the gate" class="responsive"/>
+
+      <p> timestamp: <span id="statsTime"> time </span></p>
+      <div id="persons">
+        no persons found
+      </div>
     </div>
-    <span>Statistics</span> <span>Person of interest</span>
+
+    <div class="column">
+      <h2>Alert</h2>
+      <p>two</p>
+    </div>
   </div>
+
 </body>
 
 </html>

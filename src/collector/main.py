@@ -46,8 +46,9 @@ def forward_analysis(frame):
         app.logger.error('Failed to reach [' + dest_analysis + ']')
         return Response('', status=400)
     app.logger.debug('forwarded to: ' + dest_analysis)
-    forward_section(json.loads(res.text), frame['section'])
-    forward_cpanel_analysis(frame, json.loads(res.text))
+    if (res.status_code == 200 ):
+        forward_section(json.loads(res.text), frame['section'])
+        forward_cpanel_analysis(frame, json.loads(res.text))
 
 
 def forward_cpanel_analysis(frame, stats):
@@ -56,9 +57,6 @@ def forward_cpanel_analysis(frame, stats):
         frame['persons'] = 'failed to analyze'
     elif (frame['timestamp'] == stats['persons'][0]['timestamp']):
         frame['persons'] = stats['persons']
-    # TODO delete to enable sending json image
-    del frame['image']
-    app.logger.debug('payload:' + str(frame))
     try:
         requests.post(dest_cpanel, json=frame)
     except:

@@ -11,32 +11,26 @@
 </head>
 
 <body>
-  <div>
-    <h1>Control Panel</h1>
-    <hr>
-    <table>
-      <tr>
-        <th>Camera #1</th>
-        <th>Camera #2</th>
-        <th>Alert</th>
-      </tr>
-      <tr>
-        <td>first_stats</td>
-        <td>second_stats</td>
-        <td>alert</td>
-      </tr>
-    </table>
-    <!-- <div class="images">
-      <span>
-        <img src="static/images/job.jpg" alt="Persons moving in the gate" height="400" width="300" />
-        <img src="static/job.jpg" alt="Persons of interest, that were detected in the gate" height="400" width="300" />
-      </span> -->
+  <h1>Control Panel</h1>
+  
+  <div class="row">
+    <div class="column">
+      <h2>Section 1</h2>
+      <!-- <img src="static/images/job.jpg" alt="Persons moving in the gate" height="400" width="300" /> -->
+      <p>one</p>
+    </div>
+    <div class="column">
+      <h2>Alert</h2>
+      <p>two</p>
+    </div>
   </div>
-  <hr>
-  <span>
-    <input class = "button" type = "button" onclick = "toggle_on()" value = "Start" />
-    <input class = "button" type = "button" onclick = "toggle_off()" value = "Stop" />
-  </span>
+
+  <div class="buttons">
+    <span>
+      <input class="button" type="button" onclick="toggle_on()" value="Start" />
+      <input class="button" type="button" onclick="toggle_off()" value="Stop" />
+    </span>
+  </div>
 
   <script src="static/scripts/main.js"></script>
 </body>

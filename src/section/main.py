@@ -22,8 +22,8 @@ def show_status():
 
 @app.route('/persons', methods=['POST'])
 def send_persons():
-    """post forwarded from face recognition"""
-    app.logger.debug('post from face collector')
+    """post forwarded from image analysis"""
+    app.logger.debug('post forwarded from image analysis')
     if (request.is_json == True):
         app.logger.debug('is json')
         return process(request.json)

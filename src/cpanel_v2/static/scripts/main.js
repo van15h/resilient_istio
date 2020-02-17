@@ -1,0 +1,65 @@
+window.onload = function () {
+  var statsTime = document.getElementById("statsTime");
+  var statsPersons = document.getElementById("statsPersons");
+  var statsImage = document.getElementById("statsFrame");
+
+  function updateStats() {
+    var request = new Request("http://localhost:35062/analysis", {
+      method: "get",
+      cache: "no-store"
+    });
+
+    fetch(request).then(function (response) {
+      return response.json();
+    }).then(function (text) {
+      console.log("length: ");
+      console.log(text.persons.length);
+
+      statsImage.src = "data:image/png;base64," + text.image;
+
+      var detectedPersons = "";
+      statsTime.innerHTML = text.persons[0].timestamp;
+      for (p of text.persons) {
+        detectedPersons += "<b><p>gender: " + p.gender + "</b>" +
+          " | age: " + p.age +
+          " | event: " + p.event + "</p>";
+      }
+      statsPersons.innerHTML = detectedPersons;
+    });
+  };
+  setInterval(updateStats, 1000);
+
+
+  var alertsPersons = document.getElementById("alertsPersons");
+  var alertsImage = document.getElementById("alertsFrame");
+  var alertsData = document.getElementById("alertsData");
+
+  function updateAlerts() {
+    var request = new Request("http://localhost:35062/alert", {
+      method: "get",
+      cache: "no-store"
+    });
+
+    fetch(request).then(function (response) {
+      return response.json();
+    }).then(function (text) {
+      console.log("length: ");
+      console.log(text.persons.length);
+
+      alertsImage.src = "data:image/png;base64," + text.image;
+
+      var data = "<p> timestamp: " + text.timestamp + "</p>" +
+        "<p> section: " + text.section + "</p>" +
+        "<p> event: " + text.event + "</p>";
+      alertsData.innerHTML = data;
+
+      var detectedPersons = "";
+      for (p of text.persons) {
+        detectedPersons += "<p>name: <b>" + p.name + "</b></p>";
+      }
+      alertsPersons.innerHTML = detectedPersons;
+    });
+  };
+
+  setInterval(updateAlerts, 1000);
+}

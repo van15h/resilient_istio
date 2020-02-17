@@ -1,0 +1,32 @@
+h1 {
+  text-align: center;
+}
+
+.button {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.button:active {
+  transform: translateY(4px);
+}
+
+.buttons{
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  text-align: center;
+}
+
+.column {
+  flex: 50%;
+}
+
+/* .responsive {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+} */

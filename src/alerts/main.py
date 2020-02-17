@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, Response
+from flask import Flask, request, Response
 import requests
 import json
 import pathlib
@@ -12,6 +12,7 @@ app = Flask(__name__)
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0',
            'port': port}
+version = os.environ.get('VERSION', 'v1')
 # db file to save alerts
 filename = os.environ.get('FILENAME',
                           'data_alerts.json')
@@ -22,7 +23,7 @@ dest_cpanel = os.environ.get('URL_CPANEL',
 @app.route('/status',
            methods=['GET'])
 def show_status():
-    return Response('Alerts : Online',
+    return Response('Alerts ' + version + ' : Online',
                     mimetype='text/plain',
                     status=200)
 

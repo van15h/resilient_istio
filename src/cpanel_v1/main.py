@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, Response, render_template
+from flask import Flask, request, Response, render_template
 import requests
 import json
 import pathlib
@@ -11,7 +11,7 @@ app = Flask(__name__)
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0',
            'port': port}
-
+version = os.environ.get('VERSION', 'v1')
 dest_alerts = os.environ.get('URL_ALERTS',
                              'http://alerts:8080')
 dest_collector = os.environ.get('URL_COLLECTOR',
@@ -25,10 +25,10 @@ sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
 stats_analysis = {'persons': [
     {
-        'age': '88-99',
-        'gender': 'female',
-        'event': 'entry',
-        'timestamp': '2010-10-14T11:19:18.039111Z'
+        'age': 'empty',
+        'gender': 'empty',
+        'event': 'empty',
+        'timestamp': 'empty'
     },
 ]}
 stats_alert = {}
@@ -45,7 +45,7 @@ def index():
 @app.route('/status',
            methods=['GET'])
 def show_status():
-    return Response('CPanel : Online',
+    return Response('CPanel ' + version + ' : Online',
                     mimetype='text/plain',
                     status=200)
 

@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, Response
+from flask import Flask, request, Response
 import requests
 import json
 import pathlib
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
-
+version = os.environ.get('VERSION', 'v1')
 # read urls of services from env variables
 dest_analysis = os.environ.get('URL_IMAGE_ANALYZE',
                                'http://image-analysis:8080/frame')
@@ -23,7 +23,9 @@ dest_cpanel = os.environ.get('URL_CPANEL',
 
 @app.route('/status', methods=['GET'])
 def show_status():
-    return Response('Collector : Online', status=200, mimetype='text/plain')
+    return Response('Collector ' + version + ' : Online',
+                    status=200,
+                    mimetype='text/plain')
 
 
 @app.route('/frame', methods=['POST'])
@@ -46,7 +48,7 @@ def forward_analysis(frame):
         app.logger.error('Failed to reach [' + dest_analysis + ']')
         return Response('', status=400)
     app.logger.debug('forwarded to: ' + dest_analysis)
-    if (res.status_code == 200 ):
+    if (res.status_code == 200):
         forward_section(json.loads(res.text), frame['section'])
         forward_cpanel_analysis(frame, json.loads(res.text))
 

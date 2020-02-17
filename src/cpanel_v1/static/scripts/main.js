@@ -1,7 +1,7 @@
 window.onload = function () {
   var statsTime = document.getElementById("statsTime");
   var statsPersons = document.getElementById("statsPersons");
-  var statsImage = document.getElementById("statsFrame");
+  // var statsImage = document.getElementById("statsFrame");
 
   function updateStats() {
     var request = new Request("http://localhost:35060/analysis", {
@@ -15,7 +15,7 @@ window.onload = function () {
       console.log("length: ");
       console.log(text.persons.length);
 
-      statsImage.src = "data:image/png;base64," + text.image;
+      // statsImage.src = "data:image/png;base64," + text.image;
 
       var detectedPersons = "";
       statsTime.innerHTML = text.persons[0].timestamp;
@@ -31,7 +31,7 @@ window.onload = function () {
 
 
   var alertsPersons = document.getElementById("alertsPersons");
-  var alertsImage = document.getElementById("alertsFrame");
+  // var alertsImage = document.getElementById("alertsFrame");
   var alertsData = document.getElementById("alertsData");
 
   function updateAlerts() {
@@ -46,7 +46,7 @@ window.onload = function () {
       console.log("length: ");
       console.log(text.persons.length);
 
-      alertsImage.src = "data:image/png;base64," + text.image;
+      // alertsImage.src = "data:image/png;base64," + text.image;
 
       var data = "<p> timestamp: " + text.timestamp + "</p>" +
         "<p> section: " + text.section + "</p>" +

@@ -1,0 +1,24 @@
+{
+  "project": "airport_security",
+  "cameras": [{
+      "id": 1,
+      "description": "exit camera section 1",
+      "url": "http://camera-agent-1:8080",
+      "section": 1,
+      "type": "exit"
+    },
+    {
+      "id": 2,
+      "description": "entry camera section 1",
+      "url": "http://camera-agent-2:8080",
+      "section": 1,
+      "type": "entry"
+    }
+  ],
+  "sections": [{
+      "id": 1,
+      "description": "gate 1",
+      "url": "http://section-1:8080"
+    }
+  ]
+}

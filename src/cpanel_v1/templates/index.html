@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Ivan Varabyeu">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+
+  <link rel="stylesheet" href="static/styles/main.css">
+
+  <title>DashBoard</title>
+</head>
+
+<body onload="update()">
+  <script src="static/scripts/main.js"></script>
+  <h1>Dashboard V1</h1>
+
+  <div class="row">
+    <div id="stats" class="column">
+      <h2>Section 1</h2>
+      <!-- <img id="statsFrame" src="" alt="persons going through the gate" class="responsive" /> -->
+      <p> timestamp: <span id="statsTime"> time </span></p>
+      <div id="statsPersons">
+        no persons found
+      </div>
+    </div>
+
+    <div id="alerts" class="column">
+      <h2>Alert</h2>
+      <!-- <img id="alertsFrame" src="" alt="persons of interest" class="responsive" /> -->
+      <div id="alertsData">
+        no alert found
+      </div>
+      <div id="alertsPersons">
+        no persons found
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

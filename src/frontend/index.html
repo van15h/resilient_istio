@@ -6,33 +6,41 @@
   <meta name="author" content="Ivan Varabyeu">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+
   <link rel="stylesheet" href="static/styles/main.css">
-  <title>CPanel</title>
+
+  <title>DashBoard</title>
 </head>
 
-<body>
-  <h1>Control Panel</h1>
-  
-  <div class="row">
-    <div class="column">
-      <h2>Section 1</h2>
-      <!-- <img src="static/images/job.jpg" alt="Persons moving in the gate" height="400" width="300" /> -->
-      <p>one</p>
-    </div>
-    <div class="column">
-      <h2>Alert</h2>
-      <p>two</p>
-    </div>
-  </div>
-
-  <div class="buttons">
-    <span>
-      <input class="button" type="button" onclick="toggle_on()" value="Start" />
-      <input class="button" type="button" onclick="toggle_off()" value="Stop" />
-    </span>
-  </div>
-
+<body onload="update()">
   <script src="static/scripts/main.js"></script>
+  <h1>Dashboard V1</h1>
+
+  <div class="row">
+    <div id="stats" class="column">
+      <h2>Section 1</h2>
+      <!-- <img id="statsFrame" src="" alt="persons going through the gate" class="responsive" /> -->
+      <p> timestamp: <span id="statsTime"> time </span></p>
+      <div id="statsPersons">
+        no persons found
+      </div>
+    </div>
+
+    <div id="alerts" class="column">
+      <h2>Alert</h2>
+      <!-- <img id="alertsFrame" src="" alt="persons of interest" class="responsive" /> -->
+      <div id="alertsData">
+        no alert found
+      </div>
+      <div id="alertsPersons">
+        no persons found
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

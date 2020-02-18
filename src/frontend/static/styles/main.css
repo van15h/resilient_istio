@@ -24,3 +24,9 @@ h1 {
 .column {
   flex: 50%;
 }
+
+/* .responsive {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+} */

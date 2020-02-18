@@ -1,38 +1,65 @@
-function toggle_on() {
-  var request = new Request('http://localhost:35060/production?toggle=on', {
-    method: 'post'
-  });
-  fetch(request).then(function (response) {
-    return response.text();
-  }).then(function (text) {
-    console.log(text.substring(0, 30));
-  });
+window.onload = function () {
+  var statsTime = document.getElementById("statsTime");
+  var statsPersons = document.getElementById("statsPersons");
+  // var statsImage = document.getElementById("statsFrame");
 
-};
+  function updateStats() {
+    var request = new Request("http://192.168.99.113:31221/analysis", {
+      method: "get",
+      cache: "no-store"
+    });
 
-function toggle_off() {
-  var request = new Request('http://localhost:35060/production?toggle=off', {
-    method: 'post'
-  });
-  fetch(request).then(function (response) {
-    return response.text();
-  }).then(function (text) {
-    console.log(text.substring(0, 30));
-  });
+    fetch(request).then(function (response) {
+      return response.json();
+    }).then(function (text) {
+      console.log("length: ");
+      console.log(text.persons.length);
 
-};
+      // statsImage.src = "data:image/png;base64," + text.image;
 
-function get_analysis() {
-  var xmlhttp = new XMLHttpRequest();
-  var url = 'http://localhost:35060/analysis';
+      var detectedPersons = "";
+      statsTime.innerHTML = text.persons[0].timestamp;
+      for (p of text.persons) {
+        detectedPersons += "<b><p>gender: " + p.gender + "</b>" +
+          " | age: " + p.age +
+          " | event: " + p.event + "</p>";
+      }
+      statsPersons.innerHTML = detectedPersons;
+    });
+  };
+  setInterval(updateStats, 1000);
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var myArr = JSON.parse(this.responseText);
-      myFunction(myArr);
-    }
+
+  var alertsPersons = document.getElementById("alertsPersons");
+  // var alertsImage = document.getElementById("alertsFrame");
+  var alertsData = document.getElementById("alertsData");
+
+  function updateAlerts() {
+    var request = new Request("http://192.168.99.113:31221/alert", {
+      method: "get",
+      cache: "no-store"
+    });
+
+    fetch(request).then(function (response) {
+      return response.json();
+    }).then(function (text) {
+      console.log("length: ");
+      console.log(text.persons.length);
+
+      // alertsImage.src = "data:image/png;base64," + text.image;
+
+      var data = "<p> timestamp: " + text.timestamp + "</p>" +
+        "<p> section: " + text.section + "</p>" +
+        "<p> event: " + text.event + "</p>";
+      alertsData.innerHTML = data;
+
+      var detectedPersons = "";
+      for (p of text.persons) {
+        detectedPersons += "<p>name: <b>" + p.name + "</b></p>";
+      }
+      alertsPersons.innerHTML = detectedPersons;
+    });
   };
 
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+  setInterval(updateAlerts, 1000);
 }

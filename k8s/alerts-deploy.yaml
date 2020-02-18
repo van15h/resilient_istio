@@ -5,6 +5,7 @@ metadata:
   labels:
     app: alerts
     service: alerts
+    project: airport
 spec:
   selector:
     app: alerts
@@ -19,6 +20,7 @@ metadata:
   labels:
     app: alerts
     version: v1
+    project: airport
 spec:
   replicas: 1
   selector:
@@ -34,6 +36,9 @@ spec:
       containers:
       - name: alerts
         image: van15h/alerts:v1
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
+        env:
+        - name: URL_CPANEL
+          value: "http://cpanel.default.svc.cluster.local:8080/alert"

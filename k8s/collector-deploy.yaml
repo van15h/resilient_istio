@@ -5,6 +5,7 @@ metadata:
   labels:
     app: collector
     service: collector
+    project: airport
 spec:
   selector:
     app: collector
@@ -19,6 +20,7 @@ metadata:
   labels:
     app: collector
     version: v1
+    project: airport
 spec:
   replicas: 1
   selector:
@@ -34,13 +36,17 @@ spec:
       containers:
       - name: collector
         image: van15h/collector:v1
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
         env:
+        - name: URL_CPANEL
+          value: "http://cpanel.default.svc.cluster.local:8080/analysis"
         - name: URL_ALERTS
-          value: "http://alerts:8080"
+          value: "http://alerts.default.svc.cluster.local:8080"
         - name: URL_IMAGE_ANALYZE
-          value: "http://image-analysis:8080/frame"
+          value: "http://image-analysis.default.svc.cluster.local:8080/frame"
         - name: URL_FACE_RECOGNITION
-          value: "http://face-recognition:8080/frame"
+          value: "http://face-recognition.default.svc.cluster.local:8080/frame"
+        - name: URL_K8S_SUFFIX
+          value: ".default.svc.cluster.local"

@@ -19,7 +19,7 @@ dest_alerts = os.environ.get('URL_ALERTS',
                              'http://alerts:8080')
 dest_cpanel = os.environ.get('URL_CPANEL',
                              'http://cpanel:8080/analysis')
-
+k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 
 @app.route('/status', methods=['GET'])
 def show_status():
@@ -68,7 +68,7 @@ def forward_cpanel_analysis(frame, stats):
 
 def forward_section(obj, id):
     """forward response from image analyzer to proper section #id"""
-    dest_section = 'http://section-' + str(id) + ':8080/persons'
+    dest_section = 'http://section-' + str(id) + k8s_suffix + ':8080/persons'
     try:
         requests.post(dest_section, json=obj)
         app.logger.debug('forwarded to: ' + dest_section)

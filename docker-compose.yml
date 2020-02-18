@@ -76,20 +76,20 @@ services:
     image: van15h/cpanel:v1
     restart: always
     volumes:
-      - ./src/cpanel:/app
+      - ./src/cpanel_v1:/app
     ports:
       - "35060:8080"
     networks:
       - airport_net
 
-  frontend:
-    container_name: frontend
-    image: van15h/frontend:v1
+  cpanel-2:
+    container_name: cpanel-2
+    image: van15h/cpanel:v2
     restart: always
     volumes:
-      - ./src/frontend:/usr/share/nginx/html
+      - ./src/cpanel_v2:/app
     ports:
-      - "35070:80"
+      - "35062:8080"
     networks:
       - airport_net
 

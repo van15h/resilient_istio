@@ -5,6 +5,7 @@ metadata:
   labels:
     app: section-1
     service: section-1
+    project: airport
 spec:
   selector:
     app: section-1
@@ -19,6 +20,7 @@ metadata:
   labels:
     app: section-1
     version: v1
+    project: airport
 spec:
   replicas: 1
   selector:
@@ -34,7 +36,7 @@ spec:
       containers:
       - name: section-1
         image: van15h/section:v1
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: SECTION
           value: "1"

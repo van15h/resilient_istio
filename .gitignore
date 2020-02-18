@@ -1,7 +1,6 @@
 istio-*/
 .vscode/
 data/
-src/frontend/
 kubectl
 src/alerts/data_alerts.json
 src/section/data_persons_1.json

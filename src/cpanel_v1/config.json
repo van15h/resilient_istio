@@ -1,5 +1,5 @@
 {
-  "project": "airport_security",
+  "project": "airport",
   "cameras": [{
       "id": 1,
       "description": "exit camera section 1",
@@ -17,7 +17,7 @@
   ],
   "sections": [{
       "id": 1,
-      "description": "gate 1",
+      "description": "section 1",
       "url": "http://section-1:8080"
     }
   ]

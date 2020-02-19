@@ -4,7 +4,9 @@ window.onload = function () {
   // var statsImage = document.getElementById("statsFrame");
 
   function updateStats() {
-    var request = new Request("http://localhost:35060/analysis", {
+    destination = "http://" + url.HOST + ":" + url.PORT + "/analysis";
+    console.log(destination);
+    var request = new Request(destination, {
       method: "get",
       cache: "no-store"
     });
@@ -35,7 +37,9 @@ window.onload = function () {
   var alertsData = document.getElementById("alertsData");
 
   function updateAlerts() {
-    var request = new Request("http://localhost:35060/alert", {
+    destination = "http://" + url.HOST + ":" + url.PORT + "/alert";
+    console.log(destination);
+    var request = new Request(destination, {
       method: "get",
       cache: "no-store"
     });

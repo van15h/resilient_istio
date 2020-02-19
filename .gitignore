@@ -4,3 +4,5 @@ data/
 kubectl
 src/alerts/data_alerts.json
 src/section/data_persons_1.json
+src/cpanel_v1/static/scripts/url_env.js
+src/cpanel_v2/static/scripts/url_env.js

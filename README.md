@@ -25,6 +25,8 @@ Resilient deployment of microservices applications with Kubernetes and Istio
 + to use k8s docker locally. images will be built direct in minikube VM.
     run: `eval $(minikube docker-env -p airport)`
 
++ to get minikube ip and port as environment variable run: `./generate_minikube_url.sh`
+
 + build docker containers locally. run: `./build_containers.sh`
 
 + use `Makefile` to deploy app

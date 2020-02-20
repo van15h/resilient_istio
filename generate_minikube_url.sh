@@ -8,6 +8,8 @@ source exports.sh
 echo "INGRESS_HOST=$INGRESS_HOST, INGRESS_PORT=$INGRESS_PORT"
 
 # generate env variable of minikube ip and port
+
+# TODO check if not present
 echo "creating url.js file with ip and port"
 {
 echo "url = {" ;

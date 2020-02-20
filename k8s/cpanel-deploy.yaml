@@ -5,20 +5,24 @@ metadata:
   labels:
     app: cpanel
     service: cpanel
+    project: airport
 spec:
+  type: NodePort
   selector:
     app: cpanel
   ports:
   - name: http
     port: 8080
+    nodePort: 30001
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cpanel-deploy
+  name: cpanel-v1
   labels:
     app: cpanel
     version: v1
+    project: airport
 spec:
   replicas: 1
   selector:
@@ -34,6 +38,47 @@ spec:
       containers:
       - name: cpanel
         image: van15h/cpanel:v1
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
+        env:
+        - name: URL_ALERTS
+          value: "http://alerts.default.svc.cluster.local:8080"
+        - name: URL_COLLECTOR
+          value: "http://collector.default.svc.cluster.local:8080"
+        - name: URL_K8S_SUFFIX
+          value: ".default.svc.cluster.local"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpanel-v2
+  labels:
+    app: cpanel
+    version: v2
+    project: airport
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpanel
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: cpanel
+        version: v2
+    spec:
+      containers:
+      - name: cpanel
+        image: van15h/cpanel:v2
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
+        env:
+        - name: URL_ALERTS
+          value: "http://alerts.default.svc.cluster.local:8080"
+        - name: URL_COLLECTOR
+          value: "http://collector.default.svc.cluster.local:8080"
+        - name: URL_K8S_SUFFIX
+          value: ".default.svc.cluster.local"

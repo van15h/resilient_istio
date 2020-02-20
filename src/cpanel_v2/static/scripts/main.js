@@ -37,7 +37,7 @@ window.onload = function () {
   var alertsData = document.getElementById("alertsData");
 
   function updateAlerts() {
-    destination = "http://" + url.HOST + ":" + url.PORT + "/analysis";
+    destination = "http://" + url.HOST + ":" + url.PORT + "/alert";
     console.log(destination);
     var request = new Request(destination, {
       method: "get",

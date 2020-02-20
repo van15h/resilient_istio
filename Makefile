@@ -47,6 +47,9 @@ virtual-services:
 ingress:
 	./kubectl apply -f istio/ingress_gateway.yaml
 
+cpanel-v2:
+	./kubectl apply -f istio/virt_svc_v2.yaml
+
 get-all:
 	./kubectl get pods
 	./kubectl get services

@@ -354,8 +354,11 @@ def get_cam_url(id):
     app.logger.info('get camera url by id: ' + str(id))
     for c in cameras['cameras']:
         if c['id'] == int(id):
-            app.logger.debug('camera url: ' + c['url'] + k8s_suffix)
-            return c['url'] + k8s_suffix
+            url = c['url'] #http://camera-agent-2:8080
+            host = url[:-5]
+            port = url[-4:]
+            app.logger.debug('camera url: ' + host + k8s_suffix + ':' + port)
+            return host + k8s_suffix + ':' + port
 
 
 def get_section_url(id):

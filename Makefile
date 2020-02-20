@@ -1,5 +1,9 @@
-minikube:
+mini-start:
 	minikube start -p testvm --kubernetes-version=v1.15.7
+
+mini-stop:
+	minikube stop -p testvm
+
 lb:
 	for i in {1..10}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status; printf "\n"; done
 

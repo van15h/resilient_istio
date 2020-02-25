@@ -29,6 +29,14 @@ Resilient deployment of microservices applications with Kubernetes and Istio
 
 + build docker containers locally. run: `./build_containers.sh`
 
++ export variables for local bash
+
+```sh
+export INGRESS_HOST=$(minikube ip -p testvm)
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+echo "INGRESS_HOST=$INGRESS_HOST, INGRESS_PORT=$INGRESS_PORT"
+```
+
 + use `Makefile` to deploy app
 
 + use `Makefile` to play around Istio resilliency

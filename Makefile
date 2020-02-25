@@ -1,8 +1,11 @@
-mini-start:
+run-mini:
 	minikube start -p testvm --kubernetes-version=v1.15.7
 
-mini-stop:
+stop-mini:
 	minikube stop -p testvm
+
+ssh:
+	minikube ssh -p testvm
 
 lb:
 	for i in {1..10}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status; printf "\n"; done
@@ -13,7 +16,7 @@ start-cameras:
 stop-cameras:
 	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/production?toggle=off
 
-status:
+health:
 	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status
 	@printf "\n"
 	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/cameras/1/state
@@ -39,16 +42,12 @@ all-reset:
 	./kubectl delete destinationrule --all
 	./kubectl delete virtualservice --all
 
-deploy-app:
+deploy-app-default:
 	./kubectl apply -f k8s
 
-destination-rules:
+deploy-istio-default:
 	./kubectl apply -f istio/dest_rule_all.yaml
-
-virtual-services:
 	./kubectl apply -f istio/virt_svc_all.yaml
-
-ingress:
 	./kubectl apply -f istio/ingress_gateway.yaml
 
 cpanel-v2:

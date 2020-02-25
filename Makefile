@@ -7,8 +7,8 @@ stop-mini:
 ssh:
 	minikube ssh -p testvm
 
-lb:
-	for i in {1..10}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status; printf "\n"; done
+load:
+	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status; printf "\n"; done
 
 start-cameras:
 	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/production?toggle=on
@@ -49,6 +49,9 @@ deploy-istio-default:
 	./kubectl apply -f istio/dest_rule_all.yaml
 	./kubectl apply -f istio/virt_svc_all.yaml
 	./kubectl apply -f istio/ingress_gateway.yaml
+
+cpanel-50-50:
+	./kubectl apply -f istio/virt_svc_50-50.yaml
 
 cpanel-v2:
 	./kubectl apply -f istio/virt_svc_v2.yaml

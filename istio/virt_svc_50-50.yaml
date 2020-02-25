@@ -37,10 +37,10 @@ spec:
         port:
           number: 8080
         subset: v1
-      weight: 0
+      weight: 50
     - destination:
         host: cpanel.default.svc.cluster.local
         port:
           number: 8080
         subset: v2
-      weight: 100
+      weight: 50

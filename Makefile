@@ -56,6 +56,18 @@ cpanel-50-50:
 cpanel-v2:
 	./kubectl apply -f istio/virt_svc_v2.yaml
 
+scale_v2_x3:
+	kubectl scale deployment cpanel-v2 --replicas=3
+
+scale_v2_x1:
+	kubectl scale deployment cpanel-v2 --replicas=1
+	
+round_robin:
+	./kubectl apply -f istio/round_robin.yaml
+
+random:
+	./kubectl apply -f istio/random_lb.yaml
+
 get-all:
 	./kubectl get pods
 	./kubectl get services

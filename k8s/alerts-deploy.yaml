@@ -21,6 +21,8 @@ metadata:
     app: alerts
     version: v1
     project: airport
+  # annotations:
+  #   sidecar.istio.io/rewriteAppHTTPProbers: "true"
 spec:
   replicas: 1
   selector:
@@ -42,3 +44,22 @@ spec:
         env:
         - name: URL_CPANEL
           value: "http://cpanel.default.svc.cluster.local:8080/alert"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 8080
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 7
+        # readinessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 8080
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 7

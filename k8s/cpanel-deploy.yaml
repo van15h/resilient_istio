@@ -7,13 +7,11 @@ metadata:
     service: cpanel
     project: airport
 spec:
-  type: NodePort
   selector:
     app: cpanel
   ports:
   - name: http
     port: 8080
-    nodePort: 30001
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -82,3 +80,10 @@ spec:
           value: "http://collector.default.svc.cluster.local:8080"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"

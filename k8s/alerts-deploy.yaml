@@ -51,15 +51,15 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "250m"
-        # livenessProbe:
-        #   httpGet:
-        #     path: /status
-        #     port: 8080
-        #   initialDelaySeconds: 15
-        #   periodSeconds: 7
-        # readinessProbe:
-        #   httpGet:
-        #     path: /status
-        #     port: 8080
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 7
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 7
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 7
+          timeoutSeconds: 3

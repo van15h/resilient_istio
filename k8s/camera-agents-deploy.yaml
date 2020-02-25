@@ -105,3 +105,15 @@ spec:
           limits:
             memory: "1024Mi"
             cpu: "250m"
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 7
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 7
+          timeoutSeconds: 3

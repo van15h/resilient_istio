@@ -57,10 +57,10 @@ cpanel-v2:
 	./kubectl apply -f istio/virt_svc_v2.yaml
 
 scale_v2_x3:
-	kubectl scale deployment cpanel-v2 --replicas=3
+	./kubectl scale deployment cpanel-v2 --replicas=3
 
 scale_v2_x1:
-	kubectl scale deployment cpanel-v2 --replicas=1
+	./kubectl scale deployment cpanel-v2 --replicas=1
 
 round_robin:
 	./kubectl apply -f istio/round_robin.yaml
@@ -73,6 +73,15 @@ fault-injection-500:
 
 fault-injection-delay10:
 	./kubectl apply -f istio/fault_injection-delay10.yaml
+
+get-istio:
+	./kubectl get pods -n istio-system
+
+timeout:
+	./kubectl apply -f istio/timeout.yaml
+
+health-timeout:
+	for i in {1..10}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/cameras/1/state; printf "\n"; done
 
 get-all:
 	./kubectl get pods

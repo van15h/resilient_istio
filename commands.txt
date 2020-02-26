@@ -6,6 +6,7 @@ kubectl get namespaces
 kubectl get pods -n istio-system
 kubectl get svc istio-ingressgateway -n istio-system
 kubectl scale deploy cpanel-v3 --replicas=3
+kubectl get pods --watch
 
 $ curl -I -HHost:example.com http://$INGRESS_HOST:$INGRESS_PORT/status
 
@@ -28,3 +29,5 @@ grafana
 
   load:
     for i in {1..100}; do sleep 0.2; curl -I http://192.168.99.113:31221/status; done
+
+istio-1.4.3/bin/istioctl validate -f istio/fault_injection.yaml

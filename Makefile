@@ -61,12 +61,18 @@ scale_v2_x3:
 
 scale_v2_x1:
 	kubectl scale deployment cpanel-v2 --replicas=1
-	
+
 round_robin:
 	./kubectl apply -f istio/round_robin.yaml
 
 random:
 	./kubectl apply -f istio/random_lb.yaml
+
+fault-injection-500:
+	./kubectl apply -f istio/fault_injection-500.yaml
+
+fault-injection-delay10:
+	./kubectl apply -f istio/fault_injection-delay10.yaml
 
 get-all:
 	./kubectl get pods

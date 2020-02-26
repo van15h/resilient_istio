@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: collector
+spec:
+  hosts:
+  - collector.default.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: collector.default.svc.cluster.local
+        subset: v1
+    retries:
+      attempts: 3
+      perTryTimeout: 1s
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: section-1
+spec:
+  hosts:
+  - section-1.default.svc.cluster.local
+  http:
+  - fault:
+      abort:
+        httpStatus: 500
+        percentage:
+          value: 25
+    route:
+    - destination:
+        host: section-1.default.svc.cluster.local
+        subset: v1

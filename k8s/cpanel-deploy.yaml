@@ -46,6 +46,25 @@ spec:
           value: "http://collector.default.svc.cluster.local:8080"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 7
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 7
+          timeoutSeconds: 3
 ---
 apiVersion: apps/v1
 kind: Deployment

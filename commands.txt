@@ -1,0 +1,30 @@
+commands
+
+kubectl version
+kubectl cluster-info
+kubectl get namespaces
+kubectl get pods -n istio-system
+kubectl get svc istio-ingressgateway -n istio-system
+kubectl scale deploy cpanel-v3 --replicas=3
+
+$ curl -I -HHost:example.com http://$INGRESS_HOST:$INGRESS_PORT/status
+
+kubectl get virtualservice cpanel -o yaml
+kubectl describe pods alerts-pod | grep 'Liveness\|Readiness'
+
+docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" | grep 'k8s_cpanel\|k8s_collector\|k8s_alerts\|k8s_camera-agent-1\|k8s_face-recognition\|k8s_image-analysis\|k8s_camera-agent-2\|k8s_section-1'
+
+kiali
+  istio-1.4.3/bin/istioctl dashboard kiali
+  admin admin
+
+grafana
+  kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
+
+  http://localhost:3000/dashboard/db/istio-mesh-dashboard
+
+  # Remove any kubectl port-forward processes that may be running:
+    killall kubectl
+
+  load:
+    for i in {1..100}; do sleep 0.2; curl -I http://192.168.99.113:31221/status; done

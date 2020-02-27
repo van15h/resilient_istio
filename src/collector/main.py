@@ -7,10 +7,13 @@ import os
 
 app = Flask(__name__)
 
+# server listen port
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
+# app version
 version = os.environ.get('VERSION', 'v1')
 # read urls of services from env variables
+# service discovery based on kubernetes services
 dest_analysis = os.environ.get('URL_IMAGE_ANALYZE',
                                'http://image-analysis:8080/frame')
 dest_face = os.environ.get('URL_FACE_RECOGNITION',
@@ -19,10 +22,13 @@ dest_alerts = os.environ.get('URL_ALERTS',
                              'http://alerts:8080')
 dest_cpanel = os.environ.get('URL_CPANEL',
                              'http://cpanel:8080/analysis')
+# to switch between istio recommended FQDN and local development
 k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 
+
 @app.route('/status', methods=['GET'])
-def show_status():
+def health():
+    """health check"""
     return Response('Collector ' + version + ' : Online',
                     status=200,
                     mimetype='text/plain')
@@ -30,7 +36,7 @@ def show_status():
 
 @app.route('/frame', methods=['POST'])
 def forward_frame():
-    """forward frame from camera to face recognition and image analyzer"""
+    """forward frame from camera to face recognition and image analysis"""
     if (request.is_json == True):
         app.logger.debug('post from agent is json')
         forward_analysis(request.json)
@@ -41,7 +47,7 @@ def forward_frame():
 
 
 def forward_analysis(frame):
-    """forward to image analyzer"""
+    """forward to image analysis"""
     try:
         res = requests.post(dest_analysis, json=frame)
     except:
@@ -51,6 +57,8 @@ def forward_analysis(frame):
     if (res.status_code == 200):
         forward_section(json.loads(res.text), frame['section'])
         forward_cpanel_analysis(frame, json.loads(res.text))
+    else:
+        return Response('Error detecting persons in image analysis', status=res.status_code)
 
 
 def forward_cpanel_analysis(frame, stats):

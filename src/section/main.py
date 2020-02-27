@@ -9,15 +9,18 @@ import os
 
 app = Flask(__name__)
 
+# server port
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
+# app version
 version = os.environ.get('VERSION', 'v1')
-# read environment variable to determine section id
+# where to save data
 filename = 'data_persons_' + os.environ['SECTION'] + '.json'
 
 
 @app.route('/status', methods=['GET'])
-def show_status():
+def health():
+    """health check"""
     return Response('Section ' + os.environ['SECTION'] + ' '
                     + version + ' : Online',
                     status=200,
@@ -57,7 +60,6 @@ def filter_stats(obj):
                                '%Y-%m-%dT%H:%M:%S.%f%z')
     except Exception as e:
         return Response(str(e), status=400)
-    # print(type(t2))
     if 'aggregate' in obj:
         if (str(obj.get('aggregate')) == 'count'):
             aggr = 'count'

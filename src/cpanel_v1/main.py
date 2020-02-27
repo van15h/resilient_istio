@@ -8,11 +8,14 @@ import time
 
 app = Flask(__name__)
 
+# server port
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
+# app version
 version = os.environ.get('VERSION', 'v1')
 dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
 dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
+# to switch between istio recommended FQDN and local development
 k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 # system configuration file
 # what camera belongs what section
@@ -45,12 +48,14 @@ stats_alert = {
 @app.route('/index',
            methods=['GET'])
 def index():
+    """frontend dashboard without pictures"""
     return render_template('index.html')
 
 
 @app.route('/status',
            methods=['GET'])
-def show_status():
+def health():
+    """health check"""
     return Response('CPanel ' + version + ' : Online',
                     mimetype='text/plain',
                     status=200)
@@ -59,6 +64,7 @@ def show_status():
 @app.route('/analysis',
            methods=['GET'])
 def get_analysis():
+    """returns info from image analysis for most recent frame"""
     headers = [{'Access-Control-Allow-Origin', '*'}]
     return Response(json.dumps(stats_analysis, indent=2),
                     status=200,
@@ -67,6 +73,7 @@ def get_analysis():
 @app.route('/alert',
            methods=['GET'])
 def get_current_alert():
+    """returns info from most recent alert"""
     headers = [{'Access-Control-Allow-Origin', '*'}]
     return Response(json.dumps(stats_alert, indent=2),
                     status=200,
@@ -75,6 +82,7 @@ def get_current_alert():
 @app.route('/analysis',
            methods=['POST'])
 def post_analysis():
+    """to recieve statistic about frame from image analysis"""
     global stats_analysis
     if (request.is_json == True):
         app.logger.debug('got statistic from analysis')
@@ -89,6 +97,7 @@ def post_analysis():
 @app.route('/alert',
            methods=['POST'])
 def post_alert():
+    """to recieve the latest alert"""
     global stats_alert
     if (request.is_json == True):
         app.logger.debug('got alert from face recognition')

@@ -9,9 +9,11 @@ import os
 
 app = Flask(__name__)
 
+# server port to listen
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0',
            'port': port}
+# current app version
 version = os.environ.get('VERSION', 'v1')
 # db file to save alerts
 filename = os.environ.get('FILENAME',
@@ -22,7 +24,8 @@ dest_cpanel = os.environ.get('URL_CPANEL',
 
 @app.route('/status',
            methods=['GET'])
-def show_status():
+def health():
+    """health check"""
     return Response('Alerts ' + version + ' : Online',
                     mimetype='text/plain',
                     status=200)
@@ -72,8 +75,7 @@ def delete_alert(id):
 
 def forward_cpanel(obj):
     try:
-        requests.post(dest_cpanel,
-                      json=obj)
+        requests.post(dest_cpanel, json=obj)
     except:
         app.logger.error('Failed to reach [' + dest_cpanel + ']')
         return Response('', status=400)
@@ -89,8 +91,7 @@ def filter_alerts(obj):
         t2 = datetime.strptime(obj.get('to'),
                                '%Y-%m-%dT%H:%M:%S.%f%z')
     except Exception as e:
-        return Response(str(e),
-                        status=400)
+        return Response(str(e), status=400)
     if 'aggregate' in obj:
         if (str(obj.get('aggregate')) == 'count'):
             aggr = 'count'

@@ -63,6 +63,11 @@ scale_v2_x3:
 scale_v2_x1:
 	./kubectl scale deployment cpanel-v2 --replicas=1
 
+scale_deployment:
+	./kubectl scale deployment collector --replicas=2
+	./kubectl scale deployment image-analysis --replicas=2
+	./kubectl scale deployment face-recognition --replicas=2
+
 round_robin:
 	./kubectl apply -f istio/round_robin.yaml
 

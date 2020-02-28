@@ -1,12 +1,55 @@
-commands
+local development
+$ mkvirtualenv -a ~/resilient_istio -p ~/.pyenv/versions/3.7.2/bin/python3 resilient_istio
 
-kubectl version
+install pylint for VSCode
+
+install requirements
+$ pip3 install -r requirements.txt
+
+add autocomplete permanently to your bash
+$ echo "source <(kubectl completion bash)" >> ~/.bashrc
+
+shorthand alias for kubectl that also works with completion (put in .bashrc):
+  alias k=kubectl
+  complete -F __start_kubectl k
+
+---
+minikube start -p airport --kubernetes-version=v1.15.7
+
+---
+get client and server version information
+$ kubectl version
+
 kubectl cluster-info
+
 kubectl get namespaces
 kubectl get pods -n istio-system
 kubectl get svc istio-ingressgateway -n istio-system
-kubectl scale deploy cpanel-v3 --replicas=3
 kubectl get pods --watch
+kubectl get pod -l app=alerts
+
+kubectl describe pods customer-6564ff969f-jqkkr
+
+kubectl scale deploy cpanel-v3 --replicas=3
+
+#to update image, or just delete deployment
+kubectl scale deploy cpanel-v1 --replicas=0
+kubectl scale deploy cpanel-v1 --replicas=1
+kubectl scale deploy cpanel-v2 --replicas=0
+kubectl scale deploy cpanel-v2 --replicas=1
+
+stream all pod's logs with label name=myLabel (stdout)
+$ kubectl logs -f -l name=myLabel --all-containers
+
+kubectl logs nginx
+kubectl logs -f nginx
+
+monitoring
+kubectl logs -f -l app=alerts -c alerts
+
+kubectl delete pod,service baz foo
+kubectl delete deployment,services --all -n default
+kubectl delete deployment,services -l project=airport
 
 $ curl -I -HHost:example.com http://$INGRESS_HOST:$INGRESS_PORT/status
 
@@ -30,4 +73,6 @@ grafana
   load:
     for i in {1..100}; do sleep 0.2; curl -I http://192.168.99.113:31221/status; done
 
+
 istio-1.4.3/bin/istioctl validate -f istio/fault_injection.yaml
+istio-1.4.3/bin/istioctl x analyze -k

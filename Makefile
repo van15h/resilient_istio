@@ -108,3 +108,9 @@ kiali:
 
 kill-grafana:
 	killall kubectl
+
+deploy-fortio:
+	./deploy_fortio.sh
+
+load-fortio:
+	./load_fortio.sh

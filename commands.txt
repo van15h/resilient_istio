@@ -76,3 +76,5 @@ grafana
 
 istio-1.4.3/bin/istioctl validate -f istio/fault_injection.yaml
 istio-1.4.3/bin/istioctl x analyze -k
+
+curl --silent http://$INGRESS_HOST:$INGRESS_PORT/ | grep -o "<h1>.*</h1>"

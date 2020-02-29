@@ -82,6 +82,7 @@ fault-injection-delay10:
 
 get-istio:
 	./kubectl get pods -n istio-system
+	./kubectl get svc -n istio-system
 
 timeout:
 	./kubectl apply -f istio/timeout.yaml
@@ -101,3 +102,9 @@ get-all:
 	./kubectl get destinationrules
 	./kubectl get virtualservices
 	./kubectl get gateways
+
+kiali:
+	istio-1.4.3/bin/istioctl dashboard kiali
+
+kill-grafana:
+	killall kubectl

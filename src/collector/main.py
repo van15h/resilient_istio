@@ -57,8 +57,6 @@ def forward_analysis(frame):
     if (res.status_code == 200):
         forward_section(json.loads(res.text), frame['section'])
         forward_cpanel_analysis(frame, json.loads(res.text))
-    else:
-        return Response('Error detecting persons in image analysis', status=res.status_code)
 
 
 def forward_cpanel_analysis(frame, stats):

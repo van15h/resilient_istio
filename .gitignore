@@ -1,5 +1,6 @@
 istio-*/
 .vscode/
+siege-3.1.4/
 data/
 kubectl
 src/alerts/data_alerts.json

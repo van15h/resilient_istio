@@ -10,6 +10,9 @@ ssh:
 load:
 	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status; printf "\n"; done
 
+load-front:
+	for i in {1..100}; do sleep 0.2; curl --silent http://$(INGRESS_HOST):$(INGRESS_PORT)/ | grep -o "<h1>.*</h1>"; done
+
 start-cameras:
 	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/production?toggle=on
 

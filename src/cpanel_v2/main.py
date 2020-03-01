@@ -12,7 +12,7 @@ app = Flask(__name__)
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
 # app version
-version = os.environ.get('VERSION', 'v1')
+version = os.environ.get('VERSION', 'v2')
 dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
 dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
 dest_momentum = os.environ.get('URL_MOMENTUM', 'http://momentum:8080')
@@ -51,7 +51,7 @@ def get_analysis():
     except:
         app.logger.error('Failed to reach [' + destination + ']')
         return Response('', status=400)
-    return Response(response.json,
+    return Response(response.text,
                     status=response.status_code)
 
 

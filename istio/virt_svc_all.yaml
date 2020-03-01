@@ -1,6 +1,19 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
+  name: momentum
+spec:
+  hosts:
+  - momentum.default.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: momentum.default.svc.cluster.local
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
   name: alerts
 spec:
   hosts:

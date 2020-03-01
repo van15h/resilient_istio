@@ -17,5 +17,8 @@ docker build -t van15h/section:v1 src/section
 echo "building collector v1"
 docker build -t van15h/collector:v1 src/collector
 
+echo "building momentum v1"
+docker build -t van15h/momentum:v1 src/momentum
+
 echo "check if all containers built"
-docker images | grep 'alerts\|cpanel\|collector\|section'
+docker images | grep 'alerts\|cpanel\|collector\|section\|momentum'

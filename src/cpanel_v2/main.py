@@ -12,9 +12,10 @@ app = Flask(__name__)
 port = int(os.environ.get('PORT', 8080))
 bind_to = {'hostname': '0.0.0.0', 'port': port}
 # app version
-version = os.environ.get('VERSION', 'v2')
+version = os.environ.get('VERSION', 'v1')
 dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
 dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
+dest_momentum = os.environ.get('URL_MOMENTUM', 'http://momentum:8080')
 # to switch between istio recommended FQDN and local development
 k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 # system configuration file
@@ -23,37 +24,16 @@ filename = os.environ.get('FILENAME', 'config.json')
 data = {}  # data from config file
 sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
-stats_analysis = {
-    'persons': [
-        {
-            'age': 'empty',
-            'gender': 'empty',
-            'event': 'empty',
-            'timestamp': 'empty'
-        },
-    ]}
-stats_alert = {
-    'persons': [
-        {
-            'age': 'empty',
-            'gender': 'empty',
-            'event': 'empty',
-            'timestamp': 'empty'
-        },
-    ]}
 
 
-@app.route('/',
-           methods=['GET'])
-@app.route('/index',
-           methods=['GET'])
+@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
 def index():
     """frontend dashboard without pictures"""
     return render_template('index.html')
 
 
-@app.route('/status',
-           methods=['GET'])
+@app.route('/status', methods=['GET'])
 def health():
     """health check"""
     return Response('CPanel ' + version + ' : Online',
@@ -61,52 +41,47 @@ def health():
                     status=200)
 
 
-@app.route('/analysis',
-           methods=['GET'])
+@app.route('/analysis', methods=['GET'])
 def get_analysis():
-    """returns info from image analysis for most recent frame"""
-    headers = [{'Access-Control-Allow-Origin', '*'}]
-    return Response(json.dumps(stats_analysis, indent=2),
-                    status=200,
-                    headers=headers)
+    """current frame statistics info"""
+    destination = dest_momentum + r'/analysis'
+    app.logger.debug('momentum url for analysis: ' + destination)
+    try:
+        response = requests.get(destination)
+    except:
+        app.logger.error('Failed to reach [' + destination + ']')
+        return Response('', status=400)
+    return Response(response.json,
+                    status=response.status_code)
 
-@app.route('/alert',
-           methods=['GET'])
+
+@app.route('/alert', methods=['GET'])
 def get_current_alert():
-    """returns info from most recent alert"""
-    headers = [{'Access-Control-Allow-Origin', '*'}]
-    return Response(json.dumps(stats_alert, indent=2),
-                    status=200,
-                    headers=headers)
-
-@app.route('/analysis',
-           methods=['POST'])
-def post_analysis():
-    """to recieve statistic about frame from image analysis"""
-    global stats_analysis
-    if (request.is_json == True):
-        app.logger.debug('got statistic from analysis')
-        app.logger.debug('analysis timestamp:'
-                         + str(request.json['timestamp']))
-        stats_analysis = request.json
-    else:
+    """current frame statistics info"""
+    destination = dest_momentum + r'/alert'
+    app.logger.debug('momentum url for alert: ' + destination)
+    try:
+        response = requests.get(destination)
+    except:
+        app.logger.error('Failed to reach [' + destination + ']')
         return Response('', status=400)
-    return Response('', status=200)
+    return Response(response.text,
+                    status=response.status_code)
 
 
-@app.route('/alert',
-           methods=['POST'])
-def post_alert():
-    """to recieve the latest alert"""
-    global stats_alert
-    if (request.is_json == True):
-        app.logger.debug('got alert from face recognition')
-        app.logger.debug('alert timestamp: '
-                         + request.json['timestamp'])
-        stats_alert = request.json
-    else:
+@app.route('/momentum/status', methods=['GET'])
+def get_momentum_status():
+    """get status of momentum"""
+    destination = dest_momentum + '/status'
+    try:
+        response = requests.get(destination)
+    except:
+        app.logger.error('Failed to reach [' + destination + ']')
         return Response('', status=400)
-    return Response('', status=200)
+    app.logger.debug('forwarding GET to momentum: '
+                     + destination)
+    return Response(response.text,
+                    status=response.status_code)
 
 
 @app.route('/collector/status',

@@ -1,7 +1,6 @@
 window.onload = function () {
   var statsTime = document.getElementById("statsTime");
   var statsPersons = document.getElementById("statsPersons");
-  // var statsImage = document.getElementById("statsFrame");
 
   function updateStats() {
     destination = "http://" + url.HOST + ":" + url.PORT + "/analysis";
@@ -17,8 +16,6 @@ window.onload = function () {
       console.log("length: ");
       console.log(text.persons.length);
 
-      // statsImage.src = "data:image/png;base64," + text.image;
-
       var detectedPersons = "";
       statsTime.innerHTML = text.persons[0].timestamp;
       for (p of text.persons) {
@@ -33,7 +30,6 @@ window.onload = function () {
 
 
   var alertsPersons = document.getElementById("alertsPersons");
-  // var alertsImage = document.getElementById("alertsFrame");
   var alertsData = document.getElementById("alertsData");
 
   function updateAlerts() {
@@ -49,8 +45,6 @@ window.onload = function () {
     }).then(function (text) {
       console.log("length: ");
       console.log(text.persons.length);
-
-      // alertsImage.src = "data:image/png;base64," + text.image;
 
       var data = "<p> timestamp: " + text.timestamp + "</p>" +
         "<p> section: " + text.section + "</p>" +

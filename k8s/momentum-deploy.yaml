@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: alerts
+  name: momentum
   labels:
-    app: alerts
-    service: alerts
+    app: momentum
+    service: momentum
     project: airport
 spec:
   selector:
-    app: alerts
+    app: momentum
   ports:
   - name: http
     port: 8080
@@ -16,34 +16,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: alerts-deploy
+  name: momentum-deploy
   labels:
-    app: alerts
+    app: momentum
     version: v1
     project: airport
-  # annotations:
-  #   sidecar.istio.io/rewriteAppHTTPProbers: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: alerts
+      app: momentum
       version: v1
   template:
     metadata:
       labels:
-        app: alerts
+        app: momentum
         version: v1
     spec:
       containers:
-      - name: alerts
-        image: van15h/alerts:v1
+      - name: momentum
+        image: van15h/momentum:v1
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
-        env:
-        - name: URL_MOMENTUM
-          value: "http://momentum.default.svc.cluster.local:8080/alert"
         resources:
           requests:
             memory: "128Mi"

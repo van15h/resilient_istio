@@ -29,6 +29,8 @@ health:
 	@printf "\n"
 	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/sections/1/status
 	@printf "\n"
+	curl http://$(INGRESS_HOST):$(INGRESS_PORT)/momentum/status
+	@printf "\n"
 
 default-reset:
 	./kubectl delete gateway --all

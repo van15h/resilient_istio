@@ -40,8 +40,8 @@ spec:
         ports:
           - containerPort: 8080
         env:
-        - name: URL_CPANEL
-          value: "http://cpanel.default.svc.cluster.local:8080/analysis"
+        - name: URL_MOMENTUM
+          value: "http://momentum.default.svc.cluster.local:8080/analysis"
         - name: URL_ALERTS
           value: "http://alerts.default.svc.cluster.local:8080"
         - name: URL_IMAGE_ANALYZE

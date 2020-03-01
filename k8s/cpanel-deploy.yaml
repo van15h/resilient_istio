@@ -44,6 +44,8 @@ spec:
           value: "http://alerts.default.svc.cluster.local:8080"
         - name: URL_COLLECTOR
           value: "http://collector.default.svc.cluster.local:8080"
+        - name: URL_MOMENTUM
+          value: "http://momentum.default.svc.cluster.local:8080"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
         resources:
@@ -97,6 +99,8 @@ spec:
           value: "http://alerts.default.svc.cluster.local:8080"
         - name: URL_COLLECTOR
           value: "http://collector.default.svc.cluster.local:8080"
+        - name: URL_MOMENTUM
+          value: "http://momentum.default.svc.cluster.local:8080"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
         resources:

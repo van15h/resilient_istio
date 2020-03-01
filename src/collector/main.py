@@ -20,8 +20,8 @@ dest_face = os.environ.get('URL_FACE_RECOGNITION',
                            'http://face-recognition:8080/frame')
 dest_alerts = os.environ.get('URL_ALERTS',
                              'http://alerts:8080')
-dest_cpanel = os.environ.get('URL_CPANEL',
-                             'http://cpanel:8080/analysis')
+dest_momentum = os.environ.get('URL_MOMENTUM',
+                             'http://momentm:8080/analysis')
 # to switch between istio recommended FQDN and local development
 k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 
@@ -56,19 +56,19 @@ def forward_analysis(frame):
     app.logger.debug('forwarded to: ' + dest_analysis)
     if (res.status_code == 200):
         forward_section(json.loads(res.text), frame['section'])
-        forward_cpanel_analysis(frame, json.loads(res.text))
+        forward_momentum_analysis(frame, json.loads(res.text))
 
 
-def forward_cpanel_analysis(frame, stats):
+def forward_momentum_analysis(frame, stats):
     """forward frame to cpanel with analyzed statistics"""
     if (len(stats['persons']) == 0):
         frame['persons'] = 'failed to analyze'
     elif (frame['timestamp'] == stats['persons'][0]['timestamp']):
         frame['persons'] = stats['persons']
     try:
-        requests.post(dest_cpanel, json=frame)
+        requests.post(dest_momentum, json=frame)
     except:
-        app.logger.error('Failed to reach [' + dest_cpanel + ']')
+        app.logger.error('Failed to reach [' + dest_momentum + ']')
         return Response('', status=400)
 
 

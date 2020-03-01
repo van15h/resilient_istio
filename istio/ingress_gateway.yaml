@@ -37,6 +37,8 @@ spec:
     - uri:
         exact: /config
     - uri:
+        exact: /momentum/status
+    - uri:
         prefix: /cameras
     - uri:
         prefix: /sections

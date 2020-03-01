@@ -15,6 +15,17 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
+  name: momentum
+spec:
+  host: momentum.default.svc.cluster.local
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
   name: alerts
 spec:
   host: alerts.default.svc.cluster.local

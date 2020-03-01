@@ -18,8 +18,8 @@ version = os.environ.get('VERSION', 'v1')
 # db file to save alerts
 filename = os.environ.get('FILENAME',
                           'data_alerts.json')
-dest_cpanel = os.environ.get('URL_CPANEL',
-                             'http://cpanel:8080/alert')
+dest_momentum = os.environ.get('URL_MOMENTUM',
+                             'http://momentum:8080/alert')
 
 
 @app.route('/status',
@@ -43,14 +43,13 @@ def filter():
     return filter_alerts(request.args)
 
 
-@app.route('/',
-           methods=['POST'])
+@app.route('/', methods=['POST'])
 def send_alert():
     """save alert in db file"""
     app.logger.debug('post from face recognition')
     if request.is_json == True:
         app.logger.debug('is json')
-        forward_cpanel(request.json)
+        forward_momentum(request.json)
         process(request.json)
     else:
         return Response('', status=400)
@@ -73,11 +72,12 @@ def delete_alert(id):
     return delete(id)
 
 
-def forward_cpanel(obj):
+def forward_momentum(obj):
+    """forward frame from face recognition to momentum microservice"""
     try:
-        requests.post(dest_cpanel, json=obj)
+        requests.post(dest_momentum, json=obj)
     except:
-        app.logger.error('Failed to reach [' + dest_cpanel + ']')
+        app.logger.error('Failed to reach [' + dest_momentum + ']')
         return Response('', status=400)
 
 

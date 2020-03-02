@@ -96,10 +96,10 @@ retries:
 	./kubectl apply -f istio/retry.yaml
 
 health-retries:
-	for i in {1..10}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/sections/1/status; printf "\n"; done
+	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/sections/1/status; printf "\n"; done
 
 health-timeout:
-	for i in {1..10}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/cameras/1/state; printf "\n"; done
+	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/cameras/1/state; printf "\n"; done
 
 get-all:
 	./kubectl get pods

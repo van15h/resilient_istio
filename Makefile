@@ -74,7 +74,7 @@ scale_deployment:
 	./kubectl scale deployment face-recognition --replicas=2
 
 round_robin:
-	./kubectl apply -f istio/round_robin.yaml
+	./kubectl apply -f istio/round_robin_lb.yaml
 
 random:
 	./kubectl apply -f istio/random_lb.yaml

@@ -16,6 +16,7 @@ version = os.environ.get('VERSION', 'v2')
 dest_alerts = os.environ.get('URL_ALERTS', 'http://alerts:8080')
 dest_collector = os.environ.get('URL_COLLECTOR', 'http://collector:8080')
 dest_momentum = os.environ.get('URL_MOMENTUM', 'http://momentum:8080')
+pod_name = os.environ.get('MY_POD_NAME', 'cpanel-v2')
 # to switch between istio recommended FQDN and local development
 k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 # system configuration file
@@ -36,7 +37,7 @@ def index():
 @app.route('/status', methods=['GET'])
 def health():
     """health check"""
-    return Response('CPanel ' + version + ' : Online',
+    return Response('CPanel ' + version + ' : Online - ' + pod_name,
                     mimetype='text/plain',
                     status=200)
 

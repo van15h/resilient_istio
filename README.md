@@ -25,17 +25,17 @@ Resilient deployment of microservices applications with Kubernetes and Istio
 + to use k8s docker locally. images will be built direct in minikube VM.
     run: `eval $(minikube docker-env -p airport)`
 
-+ to get minikube ip and port as environment variable run: `./generate_minikube_url.sh`
-
-+ build docker containers locally. run: `./build_containers.sh`
-
 + export variables for local bash
 
 ```sh
-export INGRESS_HOST=$(minikube ip -p testvm)
+export INGRESS_HOST=$(minikube ip -p airport)
 export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
 echo "INGRESS_HOST=$INGRESS_HOST, INGRESS_PORT=$INGRESS_PORT"
 ```
+
++ after all istio services are up and running to get minikube ip and port as environment variable run: `./generate_minikube_url.sh`
+
++ build docker containers locally. run: `./build_containers.sh`
 
 + use `Makefile` to deploy app
 

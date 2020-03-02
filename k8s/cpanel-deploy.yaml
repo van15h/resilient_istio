@@ -48,13 +48,17 @@ spec:
           value: "http://momentum.default.svc.cluster.local:8080"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
           limits:
             memory: "256Mi"
-            cpu: "250m"
+            cpu: "150m"
         livenessProbe:
           tcpSocket:
             port: 8080
@@ -103,13 +107,17 @@ spec:
           value: "http://momentum.default.svc.cluster.local:8080"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
           limits:
             memory: "256Mi"
-            cpu: "250m"
+            cpu: "150m"
         livenessProbe:
           tcpSocket:
             port: 8080

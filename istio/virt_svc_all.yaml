@@ -69,11 +69,11 @@ metadata:
   name: camera-agent-2
 spec:
   hosts:
-  - camera-agent-2
+  - camera-agent-2.default.svc.cluster.local
   http:
   - route:
     - destination:
-        host: camera-agent-2
+        host: camera-agent-2.default.svc.cluster.local
         subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3

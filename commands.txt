@@ -32,6 +32,9 @@ kubectl describe pods customer-6564ff969f-jqkkr
 
 kubectl scale deploy cpanel-v3 --replicas=3
 
+# shell in pod container
+kubectl exec -it <pod-name> -c <container-name> sh
+
 #to update image, or just delete deployment
 kubectl scale deploy cpanel-v1 --replicas=0
 kubectl scale deploy cpanel-v1 --replicas=1
@@ -51,10 +54,12 @@ kubectl delete pod,service baz foo
 kubectl delete deployment,services --all -n default
 kubectl delete deployment,services -l project=airport
 
-$ curl -I -HHost:example.com http://$INGRESS_HOST:$INGRESS_PORT/status
+curl -I -HHost:example.com http://$INGRESS_HOST:$INGRESS_PORT/status
 
 kubectl get virtualservice cpanel -o yaml
 kubectl describe pods alerts-pod | grep 'Liveness\|Readiness'
+
+
 
 docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" | grep 'k8s_cpanel\|k8s_collector\|k8s_alerts\|k8s_camera-agent-1\|k8s_face-recognition\|k8s_image-analysis\|k8s_camera-agent-2\|k8s_section-1'
 

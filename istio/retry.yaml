@@ -1,14 +1,43 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: collector
+  name: cpanel
 spec:
   hosts:
-  - collector.default.svc.cluster.local
+  - "*"
+  gateways:
+  - airport-gateway
   http:
-  - route:
+  - match:
+    - uri:
+        exact: /
+    - uri:
+        exact: /status
+    - uri:
+        exact: /alert
+    - uri:
+        exact: /analysis
+    - uri:
+        exact: /production
+    - uri:
+        exact: /config
+    - uri:
+        exact: /momentum/status
+    - uri:
+        prefix: /cameras
+    - uri:
+        prefix: /sections
+    - uri:
+        prefix: /alerts
+    - uri:
+        prefix: /collector
+    - uri:
+        prefix: /static
+    route:
     - destination:
-        host: collector.default.svc.cluster.local
+        host: cpanel.default.svc.cluster.local
+        port:
+          number: 8080
         subset: v1
     retries:
       attempts: 3
@@ -26,7 +55,7 @@ spec:
       abort:
         httpStatus: 500
         percentage:
-          value: 25
+          value: 10
     route:
     - destination:
         host: section-1.default.svc.cluster.local

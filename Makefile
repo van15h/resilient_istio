@@ -1,11 +1,11 @@
 run-mini:
-	minikube start -p testvm --kubernetes-version=v1.15.7
+	minikube start -p airport --kubernetes-version=v1.15.7
 
 stop-mini:
-	minikube stop -p testvm
+	minikube stop -p airport
 
 ssh:
-	minikube ssh -p testvm
+	minikube ssh -p airport
 
 load:
 	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/status; printf "\n"; done
@@ -94,6 +94,9 @@ timeout:
 
 retries:
 	./kubectl apply -f istio/retry.yaml
+
+retries-fault:
+	./kubectl apply -f istio/retry_fault.yaml
 
 health-retries:
 	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/sections/1/status; printf "\n"; done

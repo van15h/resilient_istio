@@ -130,6 +130,12 @@ kiali:
 kill-grafana:
 	killall kubectl
 
+circuit-breaker:
+	./kubectl apply -f istio/circuit_breaker.yaml
+
+get-fortio:
+	./kubectl exec $(shell kubectl get pod -l app=fortio -o jsonpath='{.items[0].metadata.name}') -c istio-proxy -- pilot-agent request GET stats | grep collector | grep pending
+
 deploy-fortio:
 	./deploy_fortio.sh
 

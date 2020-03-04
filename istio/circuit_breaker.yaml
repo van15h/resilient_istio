@@ -1,22 +1,22 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: alerts
+  name: collector
 spec:
-  host: alerts.default.svc.cluster.local
+  host: collector.default.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+      tcp:
+        maxConnections: 1
+    outlierDetection:
+      baseEjectionTime: 60s
+      consecutiveErrors: 3
+      interval: 10s
+      maxEjectionPercent: 100
   subsets:
   - name: v1
     labels:
       version: v1
-      trafficPolicy:
-        connectionPool:
-          http:
-            http1MaxPendingRequests: 1
-            maxRequestsPerConnection: 1
-          tcp:
-            maxConnections: 1
-        outlierDetection:
-          baseEjectionTime: 180.000s
-          consecutiveErrors: 1
-          interval: 1.000s
-          maxEjectionPercent: 100

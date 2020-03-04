@@ -24,14 +24,34 @@ dest_momentum = os.environ.get('URL_MOMENTUM',
                              'http://momentm:8080/analysis')
 # to switch between istio recommended FQDN and local development
 k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
+# to allow faulty healthcheck
+health_code = 200
+pod_name = os.environ.get('MY_POD_NAME', 'collector')
+
+
+@app.route('/fault', methods=['GET'])
+def fault():
+    """response health with fault 500"""
+    global health_code
+    if (health_code == 200):
+        health_code = 503
+        return Response('Now faulty', status=200)
+    else:
+        health_code = 200
+        return Response('Now normal', status=200)
 
 
 @app.route('/status', methods=['GET'])
 def health():
     """health check"""
-    return Response('Collector ' + version + ' : Online',
-                    status=200,
-                    mimetype='text/plain')
+    if (health_code == 200):
+        return Response('Collector ' + version + ' : Online - ' + pod_name,
+                        mimetype='text/plain',
+                        status=200)
+    else:
+        return Response('Collector ' + version + ' : Error 503 - ' + pod_name,
+                        mimetype='text/plain',
+                        status=503)
 
 
 @app.route('/frame', methods=['POST'])

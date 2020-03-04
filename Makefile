@@ -104,6 +104,19 @@ health-retries:
 health-timeout:
 	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/cameras/1/state; printf "\n"; done
 
+outlier:
+	./kubectl apply -f istio/outlier_detection_collector.yaml
+
+outlier-fault:
+	./kubectl exec -it $(shell kubectl get pod -l app=collector,version=v1 -o jsonpath='{.items[0].metadata.name}') -c collector http localhost:8080/fault
+
+outlier-scale:
+	./kubectl scale deployment collector-deploy --replicas=3
+	./kubectl get pods --watch
+
+health-outlier:
+	for i in {1..100}; do sleep 0.2; curl http://$(INGRESS_HOST):$(INGRESS_PORT)/collector/status; printf "\n"; done
+
 get-all:
 	./kubectl get pods
 	./kubectl get services

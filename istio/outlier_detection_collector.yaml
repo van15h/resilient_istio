@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: collector
+spec:
+  host: collector.default.svc.cluster.local
+  trafficPolicy:
+    outlierDetection:
+      baseEjectionTime: 60s
+      consecutiveErrors: 3
+      interval: 5s
+      maxEjectionPercent: 100
+  subsets:
+  - name: v1
+    labels:
+      version: v1

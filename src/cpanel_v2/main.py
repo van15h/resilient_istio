@@ -22,6 +22,8 @@ k8s_suffix = os.environ.get('URL_K8S_SUFFIX', '')
 # system configuration file
 # what camera belongs what section
 filename = os.environ.get('FILENAME', 'config.json')
+# to allow faulty healthcheck
+health_code = 200
 data = {}  # data from config file
 sections = {'sections': []}  # all sections
 cameras = {'cameras': []}  # all cameras
@@ -34,12 +36,29 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/fault', methods=['GET'])
+def fault():
+    """response health with fault 500"""
+    global health_code
+    if (health_code == 200):
+        health_code = 503
+        return Response('Now faulty', status=200)
+    else:
+        health_code = 200
+        return Response('Now normal', status=200)
+
+
 @app.route('/status', methods=['GET'])
 def health():
     """health check"""
-    return Response('CPanel ' + version + ' : Online - ' + pod_name,
-                    mimetype='text/plain',
-                    status=200)
+    if (health_code == 200):
+        return Response('CPanel ' + version + ' : Online - ' + pod_name,
+                        mimetype='text/plain',
+                        status=200)
+    else:
+        return Response('CPanel ' + version + ' : Error 503 - ' + pod_name,
+                        mimetype='text/plain',
+                        status=503)
 
 
 @app.route('/analysis', methods=['GET'])
@@ -339,7 +358,7 @@ def get_cam_url(id):
     app.logger.info('get camera url by id: ' + str(id))
     for c in cameras['cameras']:
         if c['id'] == int(id):
-            url = c['url'] #http://camera-agent-2:8080
+            url = c['url']  # http://camera-agent-2:8080
             host = url[:-5]
             port = url[-4:]
             app.logger.debug('camera url: ' + host + k8s_suffix + ':' + port)

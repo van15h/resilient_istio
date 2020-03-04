@@ -81,5 +81,6 @@ grafana
 
 istio-1.4.3/bin/istioctl validate -f istio/fault_injection.yaml
 istio-1.4.3/bin/istioctl x analyze -k
+istio-1.4.3/bin/istioctl proxy-status
 
 curl --silent http://$INGRESS_HOST:$INGRESS_PORT/ | grep -o "<h1>.*</h1>"

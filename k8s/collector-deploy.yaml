@@ -50,6 +50,10 @@ spec:
           value: "http://face-recognition.default.svc.cluster.local:8080/frame"
         - name: URL_K8S_SUFFIX
           value: ".default.svc.cluster.local"
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         resources:
           requests:
             memory: "128Mi"

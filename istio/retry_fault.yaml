@@ -10,7 +10,7 @@ spec:
       abort:
         httpStatus: 500
         percentage:
-          value: 10
+          value: 25
     route:
     - destination:
         host: section-1.default.svc.cluster.local
